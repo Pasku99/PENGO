@@ -1,0 +1,32 @@
+[
+{
+  "directory": "/home/pascual/Escritorio/PENGO/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/MiJuego.dir/main.cpp.o -c /home/pascual/Escritorio/PENGO/main.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/main.cpp"
+},
+{
+  "directory": "/home/pascual/Escritorio/PENGO/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/mimodulo.cpp.o -c /home/pascual/Escritorio/PENGO/ej_modulos/mimodulo.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo.cpp"
+},
+{
+  "directory": "/home/pascual/Escritorio/PENGO/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/mimodulo2.cpp.o -c /home/pascual/Escritorio/PENGO/ej_modulos/mimodulo2.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo2.cpp"
+},
+{
+  "directory": "/home/pascual/Escritorio/PENGO/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o -c /home/pascual/Escritorio/PENGO/ej_modulos/Juego.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/ej_modulos/Juego.cpp"
+},
+{
+  "directory": "/home/pascual/Escritorio/PENGO/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o -c /home/pascual/Escritorio/PENGO/ej_modulos/Map.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/ej_modulos/Map.cpp"
+},
+{
+  "directory": "/home/pascual/Escritorio/PENGO/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o -c /home/pascual/Escritorio/PENGO/ej_modulos/Jugador.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.cpp"
+}
+]

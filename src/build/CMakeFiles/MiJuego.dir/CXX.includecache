@@ -1,0 +1,30 @@
+#IncludeRegexLine: ^[ 	]*#[ 	]*(include|import)[ 	]*[<"]([^">]+)([">])
+
+#IncludeRegexScan: ^.*$
+
+#IncludeRegexComplain: ^$
+
+#IncludeRegexTransform: 
+
+/home/pascual/Escritorio/PENGO/ej_modulos/Juego.h
+Jugador.h
+/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.h
+
+/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.h
+SFML/Graphics.hpp
+-
+iostream
+-
+
+/home/pascual/Escritorio/PENGO/include/config.h
+
+/home/pascual/Escritorio/PENGO/main.cpp
+SFML/Graphics.hpp
+-
+iostream
+-
+include/config.h
+/home/pascual/Escritorio/PENGO/include/config.h
+ej_modulos/Juego.h
+/home/pascual/Escritorio/PENGO/ej_modulos/Juego.h
+
