@@ -6,57 +6,41 @@
 
 #IncludeRegexTransform: 
 
-/home/pascual/Escritorio/PENGO/ej_modulos/Juego.cpp
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.cpp
 Juego.h
-/home/pascual/Escritorio/PENGO/ej_modulos/Juego.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.h
 SFML/Graphics.hpp
 -
 
-/home/pascual/Escritorio/PENGO/ej_modulos/Juego.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.h
 Jugador.h
-/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
 
-/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.cpp
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp
 SFML/Graphics.hpp
 -
 iostream
 -
 Jugador.h
-/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
 
-/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
 SFML/Graphics.hpp
 -
 iostream
 -
 
-/home/pascual/Escritorio/PENGO/ej_modulos/Map.cpp
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.cpp
 SFML/Graphics.hpp
 -
 iostream
 -
 Map.h
-/home/pascual/Escritorio/PENGO/ej_modulos/Map.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
 
-/home/pascual/Escritorio/PENGO/ej_modulos/Map.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
 SFML/Graphics.hpp
 -
 iostream
 -
-
-/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo.cpp
-mimodulo.h
-/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo.h
-iostream
--
-
-/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo.h
-
-/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo2.cpp
-mimodulo2.h
-/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo2.h
-iostream
--
-
-/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo2.h
 

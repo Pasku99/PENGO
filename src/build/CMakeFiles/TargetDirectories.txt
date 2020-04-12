@@ -1,6 +1,6 @@
-/home/pascual/Escritorio/PENGO/build/CMakeFiles/rebuild_cache.dir
-/home/pascual/Escritorio/PENGO/build/CMakeFiles/edit_cache.dir
-/home/pascual/Escritorio/PENGO/build/CMakeFiles/MiJuego.dir
-/home/pascual/Escritorio/PENGO/build/CMakeFiles/libModulos.dir
-/home/pascual/Escritorio/PENGO/build/ej_modulos/CMakeFiles/edit_cache.dir
-/home/pascual/Escritorio/PENGO/build/ej_modulos/CMakeFiles/rebuild_cache.dir
+/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/rebuild_cache.dir
+/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/Pengo.dir
+/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/edit_cache.dir
+/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir
+/home/pascual/Escritorio/PENGO/src/build/ej_modulos/CMakeFiles/edit_cache.dir
+/home/pascual/Escritorio/PENGO/src/build/ej_modulos/CMakeFiles/rebuild_cache.dir

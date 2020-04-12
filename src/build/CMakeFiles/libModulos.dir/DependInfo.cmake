@@ -4,11 +4,9 @@ set(CMAKE_DEPENDS_LANGUAGES
   )
 # The set of files for implicit dependencies of each language:
 set(CMAKE_DEPENDS_CHECK_CXX
-  "/home/pascual/Escritorio/PENGO/ej_modulos/Juego.cpp" "/home/pascual/Escritorio/PENGO/build/CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o"
-  "/home/pascual/Escritorio/PENGO/ej_modulos/Jugador.cpp" "/home/pascual/Escritorio/PENGO/build/CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o"
-  "/home/pascual/Escritorio/PENGO/ej_modulos/Map.cpp" "/home/pascual/Escritorio/PENGO/build/CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o"
-  "/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo.cpp" "/home/pascual/Escritorio/PENGO/build/CMakeFiles/libModulos.dir/ej_modulos/mimodulo.cpp.o"
-  "/home/pascual/Escritorio/PENGO/ej_modulos/mimodulo2.cpp" "/home/pascual/Escritorio/PENGO/build/CMakeFiles/libModulos.dir/ej_modulos/mimodulo2.cpp.o"
+  "/home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o"
+  "/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o"
+  "/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

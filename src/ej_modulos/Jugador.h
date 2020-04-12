@@ -9,13 +9,14 @@ using namespace sf;
 
 class Jugador{
     public:
+        int x = 0;
         Texture *tex;
         Sprite *jugador;
         int xx = 0, yy = 0;
         Jugador();
-        void movimiento();
+        void movimiento(int);
         Sprite *getSprite();
-        void hacerTransparente();
+        void Update(RenderWindow&);
         void restartSprite();
         void Draw(RenderWindow&);    
 };

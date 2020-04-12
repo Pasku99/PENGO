@@ -7,40 +7,50 @@
 Juego::Juego(sf::Vector2u resolucion){
     //Creamos una ventana
     ventana = new sf::RenderWindow(sf::VideoMode(resolucion.x,resolucion.y), "Gremory Hole");
-    Jugador *j1 = new Jugador();
-    while (ventana->isOpen()) {
-    //Bucle de obtención de eventos
-    sf::Event event;
-    while (ventana->pollEvent(event)) {
-
-      switch (event.type) {
-
-      //Si se recibe el evento de cerrar la ventana la cierro
-      case sf::Event::Closed:
-        ventana->close();
-        break;
-
-      //Se pulsó una tecla, imprimo su codigo
-      case sf::Event::KeyPressed:
-
-        //Verifico si se pulsa alguna tecla de movimiento
-        switch (event.key.code) {
-
-
-        //Tecla ESC para salir
-        case sf::Keyboard::Escape:
-          ventana->close();
-          break;
-
-        //Cualquier tecla desconocida se imprime por pantalla su código
-        default:
-          std::cout << event.key.code << std::endl;
-          break;
-        }
-      }
+    this->iniciar();
+    while(gameover != true){
+      /*
+        *crono1 = reloj1->getElapsedTime(); // Obtener tiempo transcurrido 
+        if(crono1->asSeconds() > 0.08){ // comparamos si el tiempo transcurrido es 1 fps (1 frame) si es asi ejecuttamos un instante
+           */
+            while(ventana->pollEvent(*evento)){
+                procesarEventos();
+            }
+            
+          j1->Update(*ventana);
+          this->dibujar();  
     }
-    ventana->clear();
-    j1->Draw(*ventana);
-    ventana->display();
-  }
+  
+}
+
+void Juego::iniciar(){
+  j1 = new Jugador();
+  evento = new sf::Event();
+}
+
+void Juego::dibujar(){
+  ventana->clear();
+  j1->Draw(*ventana);
+  ventana->display();
+}
+
+void Juego::procesarEventos(){
+    switch (evento->type)
+    {
+        case sf::Event::Closed:
+            exit(1);
+            break;
+        case sf::Event::KeyPressed:
+        // si se pulsa la tecla izquierda
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+            j1->movimiento(x);
+            x++;
+            if(x == 2){
+              x = 0;
+            }
+          }
+          break;
+        default:
+          break;
+    }
 }

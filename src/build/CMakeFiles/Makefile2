@@ -54,45 +54,45 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pascual/Escritorio/PENGO
+CMAKE_SOURCE_DIR = /home/pascual/Escritorio/PENGO/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pascual/Escritorio/PENGO/build
+CMAKE_BINARY_DIR = /home/pascual/Escritorio/PENGO/src/build
 
 #=============================================================================
-# Target rules for target CMakeFiles/MiJuego.dir
+# Target rules for target CMakeFiles/Pengo.dir
 
 # All Build rule for target.
-CMakeFiles/MiJuego.dir/all: CMakeFiles/libModulos.dir/all
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/depend
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pascual/Escritorio/PENGO/build/CMakeFiles --progress-num=1,2 "Built target MiJuego"
-.PHONY : CMakeFiles/MiJuego.dir/all
+CMakeFiles/Pengo.dir/all: CMakeFiles/libModulos.dir/all
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/depend
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/build
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=1,2 "Built target Pengo"
+.PHONY : CMakeFiles/Pengo.dir/all
 
 # Include target in all.
-all: CMakeFiles/MiJuego.dir/all
+all: CMakeFiles/Pengo.dir/all
 
 .PHONY : all
 
 # Build rule for subdir invocation for target.
-CMakeFiles/MiJuego.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/build/CMakeFiles 8
-	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/MiJuego.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/build/CMakeFiles 0
-.PHONY : CMakeFiles/MiJuego.dir/rule
+CMakeFiles/Pengo.dir/rule: cmake_check_build_system
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/src/build/CMakeFiles 6
+	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/Pengo.dir/all
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/src/build/CMakeFiles 0
+.PHONY : CMakeFiles/Pengo.dir/rule
 
 # Convenience name for target.
-MiJuego: CMakeFiles/MiJuego.dir/rule
+Pengo: CMakeFiles/Pengo.dir/rule
 
-.PHONY : MiJuego
-
-# clean rule for target.
-CMakeFiles/MiJuego.dir/clean:
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/clean
-.PHONY : CMakeFiles/MiJuego.dir/clean
+.PHONY : Pengo
 
 # clean rule for target.
-clean: CMakeFiles/MiJuego.dir/clean
+CMakeFiles/Pengo.dir/clean:
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/clean
+.PHONY : CMakeFiles/Pengo.dir/clean
+
+# clean rule for target.
+clean: CMakeFiles/Pengo.dir/clean
 
 .PHONY : clean
 
@@ -103,7 +103,7 @@ clean: CMakeFiles/MiJuego.dir/clean
 CMakeFiles/libModulos.dir/all:
 	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/depend
 	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/build
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pascual/Escritorio/PENGO/build/CMakeFiles --progress-num=3,4,5,6,7,8 "Built target libModulos"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=3,4,5,6 "Built target libModulos"
 .PHONY : CMakeFiles/libModulos.dir/all
 
 # Include target in all.
@@ -113,9 +113,9 @@ all: CMakeFiles/libModulos.dir/all
 
 # Build rule for subdir invocation for target.
 CMakeFiles/libModulos.dir/rule: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/build/CMakeFiles 6
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/src/build/CMakeFiles 4
 	$(MAKE) -f CMakeFiles/Makefile2 CMakeFiles/libModulos.dir/all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/src/build/CMakeFiles 0
 .PHONY : CMakeFiles/libModulos.dir/rule
 
 # Convenience name for target.

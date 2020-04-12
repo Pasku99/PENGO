@@ -48,10 +48,10 @@ RM = /usr/bin/cmake -E remove -f
 EQUALS = =
 
 # The top-level source directory on which CMake was run.
-CMAKE_SOURCE_DIR = /home/pascual/Escritorio/PENGO
+CMAKE_SOURCE_DIR = /home/pascual/Escritorio/PENGO/src
 
 # The top-level build directory on which CMake was run.
-CMAKE_BINARY_DIR = /home/pascual/Escritorio/PENGO/build
+CMAKE_BINARY_DIR = /home/pascual/Escritorio/PENGO/src/build
 
 #=============================================================================
 # Targets provided globally by CMake.
@@ -80,9 +80,9 @@ edit_cache/fast: edit_cache
 
 # The main all target
 all: cmake_check_build_system
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/build/CMakeFiles /home/pascual/Escritorio/PENGO/build/CMakeFiles/progress.marks
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/src/build/CMakeFiles /home/pascual/Escritorio/PENGO/src/build/CMakeFiles/progress.marks
 	$(MAKE) -f CMakeFiles/Makefile2 all
-	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/build/CMakeFiles 0
+	$(CMAKE_COMMAND) -E cmake_progress_start /home/pascual/Escritorio/PENGO/src/build/CMakeFiles 0
 .PHONY : all
 
 # The main clean target
@@ -111,17 +111,17 @@ depend:
 .PHONY : depend
 
 #=============================================================================
-# Target rules for targets named MiJuego
+# Target rules for targets named Pengo
 
 # Build rule for target.
-MiJuego: cmake_check_build_system
-	$(MAKE) -f CMakeFiles/Makefile2 MiJuego
-.PHONY : MiJuego
+Pengo: cmake_check_build_system
+	$(MAKE) -f CMakeFiles/Makefile2 Pengo
+.PHONY : Pengo
 
 # fast build rule for target.
-MiJuego/fast:
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/build
-.PHONY : MiJuego/fast
+Pengo/fast:
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/build
+.PHONY : Pengo/fast
 
 #=============================================================================
 # Target rules for targets named libModulos
@@ -217,67 +217,13 @@ ej_modulos/Map.cpp.s:
 	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.s
 .PHONY : ej_modulos/Map.cpp.s
 
-ej_modulos/mimodulo.o: ej_modulos/mimodulo.cpp.o
-
-.PHONY : ej_modulos/mimodulo.o
-
-# target to build an object file
-ej_modulos/mimodulo.cpp.o:
-	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/mimodulo.cpp.o
-.PHONY : ej_modulos/mimodulo.cpp.o
-
-ej_modulos/mimodulo.i: ej_modulos/mimodulo.cpp.i
-
-.PHONY : ej_modulos/mimodulo.i
-
-# target to preprocess a source file
-ej_modulos/mimodulo.cpp.i:
-	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/mimodulo.cpp.i
-.PHONY : ej_modulos/mimodulo.cpp.i
-
-ej_modulos/mimodulo.s: ej_modulos/mimodulo.cpp.s
-
-.PHONY : ej_modulos/mimodulo.s
-
-# target to generate assembly for a file
-ej_modulos/mimodulo.cpp.s:
-	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/mimodulo.cpp.s
-.PHONY : ej_modulos/mimodulo.cpp.s
-
-ej_modulos/mimodulo2.o: ej_modulos/mimodulo2.cpp.o
-
-.PHONY : ej_modulos/mimodulo2.o
-
-# target to build an object file
-ej_modulos/mimodulo2.cpp.o:
-	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/mimodulo2.cpp.o
-.PHONY : ej_modulos/mimodulo2.cpp.o
-
-ej_modulos/mimodulo2.i: ej_modulos/mimodulo2.cpp.i
-
-.PHONY : ej_modulos/mimodulo2.i
-
-# target to preprocess a source file
-ej_modulos/mimodulo2.cpp.i:
-	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/mimodulo2.cpp.i
-.PHONY : ej_modulos/mimodulo2.cpp.i
-
-ej_modulos/mimodulo2.s: ej_modulos/mimodulo2.cpp.s
-
-.PHONY : ej_modulos/mimodulo2.s
-
-# target to generate assembly for a file
-ej_modulos/mimodulo2.cpp.s:
-	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/mimodulo2.cpp.s
-.PHONY : ej_modulos/mimodulo2.cpp.s
-
 main.o: main.cpp.o
 
 .PHONY : main.o
 
 # target to build an object file
 main.cpp.o:
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/main.cpp.o
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/main.cpp.o
 .PHONY : main.cpp.o
 
 main.i: main.cpp.i
@@ -286,7 +232,7 @@ main.i: main.cpp.i
 
 # target to preprocess a source file
 main.cpp.i:
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/main.cpp.i
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/main.cpp.i
 .PHONY : main.cpp.i
 
 main.s: main.cpp.s
@@ -295,7 +241,7 @@ main.s: main.cpp.s
 
 # target to generate assembly for a file
 main.cpp.s:
-	$(MAKE) -f CMakeFiles/MiJuego.dir/build.make CMakeFiles/MiJuego.dir/main.cpp.s
+	$(MAKE) -f CMakeFiles/Pengo.dir/build.make CMakeFiles/Pengo.dir/main.cpp.s
 .PHONY : main.cpp.s
 
 # Help Target
@@ -305,8 +251,8 @@ help:
 	@echo "... clean"
 	@echo "... depend"
 	@echo "... rebuild_cache"
+	@echo "... Pengo"
 	@echo "... edit_cache"
-	@echo "... MiJuego"
 	@echo "... libModulos"
 	@echo "... ej_modulos/Juego.o"
 	@echo "... ej_modulos/Juego.i"
@@ -317,12 +263,6 @@ help:
 	@echo "... ej_modulos/Map.o"
 	@echo "... ej_modulos/Map.i"
 	@echo "... ej_modulos/Map.s"
-	@echo "... ej_modulos/mimodulo.o"
-	@echo "... ej_modulos/mimodulo.i"
-	@echo "... ej_modulos/mimodulo.s"
-	@echo "... ej_modulos/mimodulo2.o"
-	@echo "... ej_modulos/mimodulo2.i"
-	@echo "... ej_modulos/mimodulo2.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
