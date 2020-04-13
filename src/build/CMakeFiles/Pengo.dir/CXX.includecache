@@ -9,8 +9,16 @@
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.h
 Jugador.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
+Map.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
 
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
+SFML/Graphics.hpp
+-
+iostream
+-
+
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
 SFML/Graphics.hpp
 -
 iostream

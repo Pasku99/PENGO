@@ -15,6 +15,8 @@ SFML/Graphics.hpp
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.h
 Jugador.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
+Map.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
 
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp
 SFML/Graphics.hpp

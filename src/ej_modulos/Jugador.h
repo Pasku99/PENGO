@@ -14,9 +14,11 @@ class Jugador{
         Sprite *jugador;
         int xx = 0, yy = 0;
         Jugador();
-        void movimiento(int);
+        void movimientoR(int);
+        void movimientoL(int);
+        void movimientoUp(int);
+        void movimientoDown(int);
         Sprite *getSprite();
-        void Update(RenderWindow&);
         void restartSprite();
         void Draw(RenderWindow&);    
 };
