@@ -7,7 +7,7 @@
 #define kVel 5
 
 int main() {
-  Juego *juego = new Juego(sf::Vector2u(960,640));
+  Juego *juego = new Juego(sf::Vector2u(800,600));
   return 0;
   /*
   MiModulo *mod = new MiModulo();

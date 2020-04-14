@@ -7,13 +7,23 @@
 using namespace std;
 using namespace sf;
 
+enum Dir {Up, Right, Down, Left};
+
 class Jugador{
     public:
+        float xxx = 0, yyy = 0;
+        float velocidad;
+        int gridX = 0, gridY = 0;
         int x = 0;
         Texture *tex;
         Sprite *jugador;
         int xx = 0, yy = 0;
         Jugador();
+        bool isMoving();
+        void warp(int gridX, int gridY);
+        void move(Dir);
+        void update();
+        Vector2f getCoors();
         void movimientoR(int);
         void movimientoL(int);
         void movimientoUp(int);

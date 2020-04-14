@@ -10,6 +10,7 @@ using namespace sf;
 
 class Juego{
     public:
+        int posx = 0, posy = 0;
         int x = 0, y = 0, z = 0, j = 0;
         bool dibujado = false;
         Juego(Vector2u tam_pantalla);
@@ -17,6 +18,7 @@ class Juego{
         void iniciar();
         void dibujar();
         void procesarEventos();
+        void procesarColisiones();
     private:
         bool gameover = false;
         RenderWindow *ventana;

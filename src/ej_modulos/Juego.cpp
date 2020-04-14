@@ -15,7 +15,9 @@ Juego::Juego(sf::Vector2u resolucion){
            */
           while(ventana->pollEvent(*evento)){
               procesarEventos();
+              procesarColisiones();
           }
+          j1->update();
           this->dibujar();  
     }
   
@@ -23,6 +25,7 @@ Juego::Juego(sf::Vector2u resolucion){
 
 void Juego::iniciar(){
   j1 = new Jugador();
+  j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
   maposo = new Map();
 }
@@ -43,28 +46,28 @@ void Juego::procesarEventos(){
         case sf::Event::KeyPressed:
         // si se pulsa la tecla izquierda
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-            j1->movimientoR(x);
+            j1->move(Right);
             x++;
             if(x == 2){
               x = 0;
             }
           }
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            j1->movimientoL(y);
+            j1->move(Left);
             y++;
             if(y == 2){
               y = 0;
             }
           }
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            j1->movimientoUp(z);
+            j1->move(Up);
             z++;
             if(z == 2){
               z = 0;
             }
           }
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-            j1->movimientoDown(j);
+            j1->move(Down);
             j++;
             if(j == 2){
               j = 0;
@@ -74,4 +77,19 @@ void Juego::procesarEventos(){
         default:
           break;
     }
+    j1->update();
+}
+
+void Juego::procesarColisiones(){
+  for(int i = 0; i < 16; i++){
+    for(int j = 0; j < 16; j++){
+      if(maposo->sprites[j][i] != nullptr){
+        cout << "j1: " << j1->getSprite()->getPosition().x + 16 << endl;
+        cout << "pared: " << maposo->sprites[j][i]->getPosition().x << endl;
+        if(j1->getSprite()->getPosition().x + 16 == maposo->sprites[j][i]->getPosition().x){
+          j1->getSprite()->setPosition(j1->getCoors().x - 16, j1->getCoors().y);
+        }
+      }
+    }
+  }
 }
