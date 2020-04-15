@@ -55,6 +55,10 @@ using namespace sf;
             gridX -= 1;
         else if (dir == Dir::Right)
             gridX += 1;
+        if(dir == Dir::Stay){
+            gridX += 0;
+            gridY -= 0;
+        }
 
     }
 

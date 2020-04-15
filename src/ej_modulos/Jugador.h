@@ -7,7 +7,7 @@
 using namespace std;
 using namespace sf;
 
-enum Dir {Up, Right, Down, Left};
+enum Dir {Up, Right, Down, Left, Stay};
 
 class Jugador{
     public:

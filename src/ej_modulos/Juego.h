@@ -11,6 +11,7 @@ using namespace sf;
 class Juego{
     public:
         int posx = 0, posy = 0;
+        bool right = false, left = false, up = false, down = false;
         int x = 0, y = 0, z = 0, j = 0;
         bool dibujado = false;
         Juego(Vector2u tam_pantalla);
