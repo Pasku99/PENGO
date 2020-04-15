@@ -89,6 +89,8 @@ using namespace sf;
     void Enemigo::update(Map *maposo){
         procesarColisionesEnemigo(maposo);
         if(right == false){
+            down = false;
+            right = false;
             enemy->move(kVel, 0);
             sgs = relojaso.getElapsedTime().asSeconds();
             if(sgs >= 0.2){
@@ -101,7 +103,9 @@ using namespace sf;
                 relojaso.restart();
             }
         }
-        if(right == true){
+        else if(right == true && down == false){
+            right = false;
+            down = false;
             enemy->move(0, kVel);
             sgs = relojaso.getElapsedTime().asSeconds();
             if(sgs >= 0.2){
@@ -114,50 +118,49 @@ using namespace sf;
                 relojaso.restart();
             }
         }
-        
-        /*
-        enemy->setPosition(xxx, yyy);
-        if (xxx < gridX * 16) //moving right
-            xxx = min(xxx + velocidad, float(gridX * 16));
-        else if (xxx > gridX * 16) //moving left
-            xxx = max(xxx - velocidad, float(gridX * 16));
-
-        if (yyy < gridY * 16) //moving down
-            yyy = min(yyy + velocidad, float(gridY * 16));
-        else if (yyy > gridY * 16) //moving up
-            yyy = max(yyy - velocidad, float(gridY * 16));
-        */
+        else if(right == false && down == true){
+            right = false;
+            down = false;
+            enemy->move(kVel, 0);
+            sgs = relojaso.getElapsedTime().asSeconds();
+            if(sgs >= 0.2){
+                avanza++;
+                this->cambiarSpriteR(avanza);
+                if(avanza == 2){
+                    // yasta = true;
+                    avanza = -1;
+                }
+                relojaso.restart();
+            }
+        }
     }
 
     void Enemigo::procesarColisionesEnemigo(Map *maposo){
         for(int i = 0; i < 16; i++){
             for(int j = 0; j < 16; j++){
             if(maposo->sprites[j][i] != nullptr){
-                FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y, 16, 16);
-                FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 16, 16, 16);
+                FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x - 1, maposo->sprites[j][i]->getPosition().y, 16, 16);
+                FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 1, 16, 16);
                 FloatRect spriteRectL(maposo->sprites[j][i]->getPosition().x + 16, maposo->sprites[j][i]->getPosition().y, 16, 16);
                 FloatRect spriteRectU(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y + 16, 16, 16);
-                FloatRect enemyRect(enemy->getPosition().x, enemy->getPosition().y, 16, 16);
+                FloatRect enemyRect(enemy->getPosition().x, enemy->getPosition().y, 15, 15);
+                cout << "Enemigo: " << enemy->getPosition().x << ", " << enemy->getPosition().y << endl;
                 if(enemyRect.intersects(spriteRectR)){
                     cout << "Enemigo tocando derecha" << endl;
                     right = true;
                 }
-
-                /*
-                // colision a la izquierda
-                if(enemyRect.intersects(spriteRectL)){
-                cout << "Tocando izquierda" << endl;
-                //left = true;
-                }
-                // colision arriba
-                if(enemyRect.intersects(spriteRectU)){
-                cout << "Tocando arriba" << endl;
-                //up = true;
-                }
-                // colision abajo
                 if(enemyRect.intersects(spriteRectD)){
-                cout << "Tocando abajo" << endl;
-                //down = true;
+                    cout << "Enemigo tocando abajo" << endl;
+                    down = true;
+                }
+                /*
+                if(enemyRect.intersects(spriteRectL)){
+                    cout << "Enemigo tocando derecha" << endl;
+                    right = true;
+                }
+                if(enemyRect.intersects(spriteRectU)){
+                    cout << "Enemigo tocando derecha" << endl;
+                    right = true;
                 }
                 */
                 }
