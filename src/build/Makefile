@@ -136,6 +136,33 @@ libModulos/fast:
 	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/build
 .PHONY : libModulos/fast
 
+ej_modulos/Enemigo.o: ej_modulos/Enemigo.cpp.o
+
+.PHONY : ej_modulos/Enemigo.o
+
+# target to build an object file
+ej_modulos/Enemigo.cpp.o:
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o
+.PHONY : ej_modulos/Enemigo.cpp.o
+
+ej_modulos/Enemigo.i: ej_modulos/Enemigo.cpp.i
+
+.PHONY : ej_modulos/Enemigo.i
+
+# target to preprocess a source file
+ej_modulos/Enemigo.cpp.i:
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.i
+.PHONY : ej_modulos/Enemigo.cpp.i
+
+ej_modulos/Enemigo.s: ej_modulos/Enemigo.cpp.s
+
+.PHONY : ej_modulos/Enemigo.s
+
+# target to generate assembly for a file
+ej_modulos/Enemigo.cpp.s:
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.s
+.PHONY : ej_modulos/Enemigo.cpp.s
+
 ej_modulos/Juego.o: ej_modulos/Juego.cpp.o
 
 .PHONY : ej_modulos/Juego.o
@@ -254,6 +281,9 @@ help:
 	@echo "... Pengo"
 	@echo "... edit_cache"
 	@echo "... libModulos"
+	@echo "... ej_modulos/Enemigo.o"
+	@echo "... ej_modulos/Enemigo.i"
+	@echo "... ej_modulos/Enemigo.s"
 	@echo "... ej_modulos/Juego.o"
 	@echo "... ej_modulos/Juego.i"
 	@echo "... ej_modulos/Juego.s"

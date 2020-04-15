@@ -18,5 +18,10 @@
   "directory": "/home/pascual/Escritorio/PENGO/src/build",
   "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/src/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o -c /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp",
   "file": "/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp"
+},
+{
+  "directory": "/home/pascual/Escritorio/PENGO/src/build",
+  "command": "/usr/bin/g++-5    -I/home/pascual/Escritorio/PENGO/src/ej_modulos   -std=c++1y -Wall -Wextra -g   -o CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o -c /home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.cpp",
+  "file": "/home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.cpp"
 }
 ]

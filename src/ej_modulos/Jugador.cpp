@@ -9,6 +9,7 @@ using namespace sf;
 #include "Jugador.h"  
   
     Jugador::Jugador(){
+        vidas = 3;
         this->warp(10, 10);
         velocidad = 0.5f;
         tex = new Texture();
@@ -21,10 +22,10 @@ using namespace sf;
         jugador->setOrigin(8, 8);
         //Cojo el sprite que me interesa por defecto del sheet
         jugador->setTextureRect(sf::IntRect(96, 1, 16, 16));
+    }
+
+    Jugador::~Jugador(){
         
-        // Lo dispongo a la derecha de la pantalla
-        //spriteb->setPosition(xx, yy);
-        //jugador->setPosition(400, 300);
     }
 
     bool Jugador::isMoving(){
@@ -141,6 +142,14 @@ using namespace sf;
         jugador->setColor(Color(255,255,255));
     }
 
+    void Jugador::hacerTransparente(){
+        jugador->setColor(Color::Transparent);
+    }
+
     Sprite *Jugador::getSprite(){
         return jugador;
+    }
+
+    int Jugador::getVidas(){
+        return vidas;
     }

@@ -6,6 +6,22 @@
 
 #IncludeRegexTransform: 
 
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.cpp
+SFML/Graphics.hpp
+-
+iostream
+-
+Enemigo.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.h
+
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.h
+SFML/Graphics.hpp
+-
+iostream
+-
+Map.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
+
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.cpp
 Juego.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.h
@@ -17,6 +33,8 @@ Jugador.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
 Map.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
+Enemigo.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.h
 
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp
 SFML/Graphics.hpp

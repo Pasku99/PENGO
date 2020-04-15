@@ -129,11 +129,36 @@ CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o.provides: CMakeFiles/libModul
 CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o.provides.build: CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o
 
 
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o: CMakeFiles/libModulos.dir/flags.make
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o: ../ej_modulos/Enemigo.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Building CXX object CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o"
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o -c /home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.cpp
+
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.i"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.cpp > CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.i
+
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.s"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.cpp -o CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.s
+
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.requires:
+
+.PHONY : CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.requires
+
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.provides: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.requires
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.provides.build
+.PHONY : CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.provides
+
+CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.provides.build: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o
+
+
 # Object files for target libModulos
 libModulos_OBJECTS = \
 "CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o" \
 "CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o" \
-"CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o"
+"CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o" \
+"CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o"
 
 # External object files for target libModulos
 libModulos_EXTERNAL_OBJECTS =
@@ -141,9 +166,10 @@ libModulos_EXTERNAL_OBJECTS =
 liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o
+liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/build.make
 liblibModulos.a: CMakeFiles/libModulos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_4) "Linking CXX static library liblibModulos.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library liblibModulos.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/libModulos.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/libModulos.dir/link.txt --verbose=$(VERBOSE)
 
@@ -155,6 +181,7 @@ CMakeFiles/libModulos.dir/build: liblibModulos.a
 CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o.requires
 CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o.requires
 CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o.requires
+CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.requires
 
 .PHONY : CMakeFiles/libModulos.dir/requires
 

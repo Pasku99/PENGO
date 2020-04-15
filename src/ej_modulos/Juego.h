@@ -4,6 +4,7 @@
 
 #include "Jugador.h"
 #include "Map.h"
+#include "Enemigo.h"
 
 using namespace std;
 using namespace sf;
@@ -13,6 +14,7 @@ class Juego{
         int posx = 0, posy = 0;
         bool right = false, left = false, up = false, down = false;
         int x = 0, y = 0, z = 0, j = 0;
+        int avanza = 0;
         bool dibujado = false;
         Juego(Vector2u tam_pantalla);
         ~Juego();
@@ -25,9 +27,8 @@ class Juego{
         RenderWindow *ventana;
         Jugador *j1;
         Event *evento;
-        Time *crono1;
-        Clock *reloj1;
         Map *maposo;
+        Enemigo *enemy1;
 };
 
 #endif

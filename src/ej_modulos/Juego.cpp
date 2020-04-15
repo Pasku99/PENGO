@@ -4,6 +4,8 @@
 using namespace std;
 using namespace sf;
 
+#define kVel 0.02
+
 Juego::Juego(sf::Vector2u resolucion){
     //Creamos una ventana
     ventana = new sf::RenderWindow(sf::VideoMode(resolucion.x,resolucion.y), "Pengo");
@@ -14,6 +16,7 @@ Juego::Juego(sf::Vector2u resolucion){
         procesarEventos();
       }
       j1->update();
+      enemy1->update(maposo);
       this->dibujar();  
     }
   
@@ -24,11 +27,13 @@ void Juego::iniciar(){
   j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
   maposo = new Map();
+  enemy1 = new Enemigo(15, 12);
 }
 
 void Juego::dibujar(){
   ventana->clear();
   j1->Draw(*ventana);
+  enemy1->Draw(*ventana);
   maposo->dibujarMapa(*ventana);
   ventana->display();
 }
