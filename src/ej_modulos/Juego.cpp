@@ -18,6 +18,8 @@ Juego::Juego(sf::Vector2u resolucion){
       }
       j1->update();
       enemy1->update(maposo);
+      enemy2->update(maposo);
+      enemy3->update(maposo);
       maposo->update(pulsado, xx, yy);
       this->dibujar();  
     }
@@ -30,12 +32,16 @@ void Juego::iniciar(){
   evento = new sf::Event();
   maposo = new Map();
   enemy1 = new Enemigo(10, 10);
+  enemy2 = new Enemigo(10, 20);
+  enemy3 = new Enemigo(20, 15);
 }
 
 void Juego::dibujar(){
   ventana->clear();
   j1->Draw(*ventana);
   enemy1->Draw(*ventana);
+  enemy2->Draw(*ventana);
+  enemy3->Draw(*ventana);
   maposo->dibujarMapa(*ventana);
   ventana->display();
 }

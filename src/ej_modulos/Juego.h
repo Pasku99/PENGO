@@ -33,6 +33,8 @@ class Juego{
         Event *evento;
         Map *maposo;
         Enemigo *enemy1;
+        Enemigo *enemy2;
+        Enemigo *enemy3;
 };
 
 #endif

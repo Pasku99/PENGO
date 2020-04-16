@@ -112,7 +112,7 @@ using namespace sf;
         procesarColisionesEnemigo(maposo);
         int random = rand()%4;
         float sgs2 = relojero.getElapsedTime().asSeconds();
-        if(sgs2 >= 0.5){
+        if(sgs2 >= 0.35){
             cout << random << endl;
             if(right == false && down == false && up == false && left == false){
                 left = false;
