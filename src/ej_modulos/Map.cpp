@@ -4,6 +4,8 @@
 using namespace std;
 using namespace sf;
 
+#define kVel 0.04
+
 #include "Map.h"
 
 Map::Map(){
@@ -28,7 +30,6 @@ Map::Map(){
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(16, 16, 16, 16));
                 sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
-                // sprites[i][j]->setPosition((i+4) * 16, 200);
             }
             else if(matrixMapa[j][i] == 3){ 
                 sprites[j][i] = new Sprite(*tex2);    
@@ -71,5 +72,11 @@ void Map::dibujarMapa(RenderWindow &window){
                 window.draw(*sprites[j][i]);
             }
         }
+    }
+}
+
+void Map::update(bool pulsado, int x, int y){
+    if(pulsado == true){
+        sprites[x][y]->move(-kVel, 0);
     }
 }

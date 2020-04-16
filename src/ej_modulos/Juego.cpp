@@ -4,19 +4,21 @@
 using namespace std;
 using namespace sf;
 
-#define kVel 0.02
+#define kVel 1
 
 Juego::Juego(sf::Vector2u resolucion){
     //Creamos una ventana
-    ventana = new sf::RenderWindow(sf::VideoMode(resolucion.x,resolucion.y), "Pengo");
+    ventana = new RenderWindow(sf::VideoMode(resolucion.x,resolucion.y), "Pengo");
     // Inicializamos todo
     this->iniciar();
+    srand(time(NULL));
     while(gameover != true){
       while(ventana->pollEvent(*evento)){
         procesarEventos();
       }
       j1->update();
       enemy1->update(maposo);
+      maposo->update(pulsado, xx, yy);
       this->dibujar();  
     }
   
@@ -27,7 +29,7 @@ void Juego::iniciar(){
   j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
   maposo = new Map();
-  enemy1 = new Enemigo(15, 12);
+  enemy1 = new Enemigo(10, 10);
 }
 
 void Juego::dibujar(){
@@ -47,6 +49,7 @@ void Juego::procesarEventos(){
         case sf::Event::KeyPressed:
         // si se pulsa la tecla derecha
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
+            pulsado = false;
             procesarColisiones();
             if(right == true){
               j1->move(Stay);
@@ -69,6 +72,8 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla izquierda
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
+            pulsado = false;
+            j1->getSprite()->setTextureRect(sf::IntRect(32, 1, 16, 15));
             procesarColisiones();
             if(left == true){
               j1->move(Stay);
@@ -91,6 +96,7 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla arriba
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
+            pulsado = false;
             procesarColisiones();
             if(up == true){
               j1->move(Stay);
@@ -113,6 +119,7 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla abajo
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
+            pulsado = false;
             procesarColisiones();
             if(down == true){
               j1->move(Stay);
@@ -131,6 +138,12 @@ void Juego::procesarEventos(){
             j++;
             if(j == 2){
               j = 0;
+            }
+          }
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+            procesarColisiones();
+            if(left == true){
+              pulsado = true;
             }
           }
           break;
@@ -156,6 +169,8 @@ void Juego::procesarColisiones(){
         }
         // colision a la izquierda
         if(jugadorRect.intersects(spriteRectL)){
+          xx = j;
+          yy = i;
           cout << "Tocando izquierda" << endl;
           left = true;
         }

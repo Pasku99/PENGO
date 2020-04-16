@@ -10,13 +10,15 @@ using namespace sf;
 
 enum DirE {Arriba, Derecha, Abajo, Izquierda, Quedate};
 
-class Enemigo{
+class Enemigo{    
     public:
-        bool right = false, left = false, down = false, up = false;
-        Clock relojaso;
-        float xxx = 0, yyy = 0, sgs = 0;
+        bool right = false, left = false, down = false, up = false, mueveUp = false;
+        Clock relojaso, relojero;
+        float xxx = 0, yyy = 0, sgs = 0, sgs2 = 0;
         float velocidad = 0;
+        float posicion = 0;
         int gridX = 0, gridY = 0;
+        int direccion = 0;
         int x = 0, avanza = 0;
         Texture *tex;
         Sprite *enemy;
@@ -25,9 +27,11 @@ class Enemigo{
         ~Enemigo();
         void cambiarSpriteR(int);
         void cambiarSpriteD(int);
+        void cambiarSpriteU(int);
+        void cambiarSpriteL(int);
         bool isMoving();
         void warp(int gridX, int gridY);
-        //void movement(DirE);
+        void move(DirE);
         void update(Map*);
         void procesarColisionesEnemigo(Map*);
         Vector2f getCoors();
