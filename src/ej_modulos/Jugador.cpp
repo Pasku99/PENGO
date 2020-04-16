@@ -81,59 +81,18 @@ using namespace sf;
     Vector2f Jugador::getCoors() {
         return Vector2f(xxx,yyy); 
     }
-/*
-    void Jugador::movimientoR(int x){
-        if(x == 0){
-            jugador->setTextureRect(sf::IntRect(96, 1, 16, 15));
-            jugador->move(kVel, 0);
-            jugador->setScale(1, 1);
+
+    bool Jugador::perderVida(bool gameover){
+        if(!gameover){
+            vidas--;
+            //cout << "Le quedan " << vidas << " vidas" << endl;
+            if(vidas <= 0){
+                gameover = true;
+            }
         }
-        else if(x == 1){
-            jugador->setTextureRect(sf::IntRect(113, 0, 16, 15));
-            jugador->move(kVel, 0);
-            jugador->setScale(1, 1);
-        }
+        return gameover;
     }
 
-    void Jugador::movimientoL(int x){
-        if(x == 0){
-            jugador->setTextureRect(sf::IntRect(32, 1, 16, 15));
-            jugador->move(-kVel, 0);
-            jugador->setScale(1, 1);
-        }
-        else if(x == 1){
-            jugador->setTextureRect(sf::IntRect(48, 0, 15, 16));
-            jugador->move(-kVel, 0);
-            jugador->setScale(1, 1);
-        }
-    }
-
-    void Jugador::movimientoUp(int x){
-        if(x == 0){
-            jugador->setTextureRect(sf::IntRect(64, 0, 16, 16));
-            jugador->move(0, -kVel);
-            jugador->setScale(1, 1);
-        }
-        else if(x == 1){
-            jugador->setTextureRect(sf::IntRect(80, 0, 16, 16));
-            jugador->move(0, -kVel);
-            jugador->setScale(1, 1);
-        }
-    }
-
-    void Jugador::movimientoDown(int x){
-        if(x == 0){
-            jugador->setTextureRect(sf::IntRect(0, 0, 16, 16));
-            jugador->move(0, kVel);
-            jugador->setScale(1, 1);
-        }
-        else if(x == 1){
-            jugador->setTextureRect(sf::IntRect(16, 0, 16, 16));
-            jugador->move(0, kVel);
-            jugador->setScale(1, 1);
-        }
-    }
-*/
     void Jugador::Draw(RenderWindow &window){
         window.draw(*jugador);
     }

@@ -25,16 +25,11 @@ class Jugador{
         void move(Dir);
         void update();
         Vector2f getCoors();
-        /*
-        void movimientoR(int);
-        void movimientoL(int);
-        void movimientoUp(int);
-        void movimientoDown(int);
-        */
         Sprite *getSprite();
         void restartSprite();
         void hacerTransparente();
         void Draw(RenderWindow&);
+        bool perderVida(bool);
         int getVidas();  
     private:
         int vidas = 0;  

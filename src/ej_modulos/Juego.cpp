@@ -12,7 +12,7 @@ Juego::Juego(sf::Vector2u resolucion){
     // Inicializamos todo
     this->iniciar();
     srand(time(NULL));
-    while(gameover != true){
+    while(gameover == false){
       while(ventana->pollEvent(*evento)){
         procesarEventos();
       }
@@ -21,6 +21,7 @@ Juego::Juego(sf::Vector2u resolucion){
       enemy2->update(maposo);
       enemy3->update(maposo);
       maposo->update(pulsado, xx, yy);
+      procesarColisionesPengoSnoobee();
       this->dibujar();  
     }
   
@@ -54,6 +55,10 @@ void Juego::procesarEventos(){
             break;
         case sf::Event::KeyPressed:
         // si se pulsa la tecla derecha
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::Escape)){
+            ventana->close();
+            break;
+          }
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
             pulsado = false;
             procesarColisiones();
@@ -191,6 +196,27 @@ void Juego::procesarColisiones(){
           down = true;
         }
       }
+    }
+  }
+}
+
+void Juego::procesarColisionesPengoSnoobee(){
+  sgs = relojaso.getElapsedTime().asSeconds();
+  if(sgs >= 3){
+    if(this->j1->getSprite()->getGlobalBounds().intersects(enemy1->getSprite()->getGlobalBounds())){
+        gameover = this->j1->perderVida(gameover);
+        cout << gameover << endl;
+        relojaso.restart();
+    }
+    if(this->j1->getSprite()->getGlobalBounds().intersects(enemy2->getSprite()->getGlobalBounds())){
+        gameover = this->j1->perderVida(gameover);
+        cout << gameover << endl;
+        relojaso.restart();
+    }
+    if(this->j1->getSprite()->getGlobalBounds().intersects(enemy3->getSprite()->getGlobalBounds())){
+        gameover = this->j1->perderVida(gameover);
+        cout << gameover << endl;
+        relojaso.restart();
     }
   }
 }

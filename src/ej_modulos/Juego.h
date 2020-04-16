@@ -26,6 +26,7 @@ class Juego{
         void dibujar();
         void procesarEventos();
         void procesarColisiones();
+        void procesarColisionesPengoSnoobee();
     private:
         bool gameover = false;
         RenderWindow *ventana;
