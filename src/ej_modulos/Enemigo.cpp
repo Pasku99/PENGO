@@ -30,15 +30,15 @@ using namespace sf;
     }
 
     bool Enemigo::isMoving(){
-        return !(xxx == gridX * 16 && yyy == gridY * 16);
+        return !(xxx == gridX * 8 && yyy == gridY * 8);
     }
 
     void Enemigo::warp(int newGridX, int newGridY){
         gridX = newGridX;
         gridY = newGridY;
 
-        xxx = newGridX * 16;
-        yyy = newGridY * 16;
+        xxx = newGridX * 8;
+        yyy = newGridY * 8;
     }
 
     void Enemigo::move(DirE dir){
@@ -99,20 +99,20 @@ using namespace sf;
     void Enemigo::update(Map *maposo){
         enemy->setPosition(xxx, yyy);
 
-            if (xxx < gridX * 16) //moving right
-                xxx = min(xxx + velocidad, float(gridX * 16));
-            else if (xxx > gridX * 16) //moving left
-                xxx = max(xxx - velocidad, float(gridX * 16));
+            if (xxx < gridX * 8) //moving right
+                xxx = min(xxx + velocidad, float(gridX * 8));
+            else if (xxx > gridX * 8) //moving left
+                xxx = max(xxx - velocidad, float(gridX * 8));
 
-            if (yyy < gridY * 16) //moving down
-                yyy = min(yyy + velocidad, float(gridY * 16));
-            else if (yyy > gridY * 16) //moving up
-                yyy = max(yyy - velocidad, float(gridY * 16));
+            if (yyy < gridY * 8) //moving down
+                yyy = min(yyy + velocidad, float(gridY * 8));
+            else if (yyy > gridY * 8) //moving up
+                yyy = max(yyy - velocidad, float(gridY * 8));
                 
         procesarColisionesEnemigo(maposo);
         int random = rand()%4;
         float sgs2 = relojero.getElapsedTime().asSeconds();
-        if(sgs2 >= 0.35){
+        if(sgs2 >= 0.3){
             //cout << random << endl;
             if(right == false && down == false && up == false && left == false){
                 left = false;
@@ -212,8 +212,20 @@ using namespace sf;
                 right = false;
                 up = false;
                 down = false;
-                if(random == 0 || random == 1 || random == 2 || random == 3){
+                if(random == 0 || random == 1){
                     this->move(Abajo);
+                    sgs = relojaso.getElapsedTime().asSeconds();
+                    if(sgs >= 0.2){
+                        avanza++;
+                        this->cambiarSpriteD(avanza);
+                        if(avanza == 2){
+                            // yasta = true;
+                            avanza = -1;
+                        }
+                        relojaso.restart();
+                    }
+                }else if(random == 2 || random == 3){
+                    this->move(Derecha);
                     sgs = relojaso.getElapsedTime().asSeconds();
                     if(sgs >= 0.2){
                         avanza++;
@@ -250,7 +262,7 @@ using namespace sf;
                 right = false;
                 up = false;
                 down = false;
-                if(random == 0 || random == 1){
+                if(random == 0 || random == 1 || random == 2 || random == 3){
                     this->move(Derecha);
                     sgs = relojaso.getElapsedTime().asSeconds();
                     if(sgs >= 0.2){
@@ -262,7 +274,7 @@ using namespace sf;
                         }
                         relojaso.restart();
                     }
-                }else if(random == 2 || random == 3){
+                }/*else if(random == 2 || random == 3){
                     this->move(Abajo);
                     sgs = relojaso.getElapsedTime().asSeconds();
                     if(sgs >= 0.2){
@@ -275,6 +287,7 @@ using namespace sf;
                         relojaso.restart();
                     }
                 }
+                */
             }
             if(right == false && down == true && up == false && left == true){
                 left = false;
@@ -663,10 +676,10 @@ using namespace sf;
         for(int i = 0; i < 16; i++){
             for(int j = 0; j < 16; j++){
                 if(maposo->matrixMapa[j][i] != 0){
-                    FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x - 16, maposo->sprites[j][i]->getPosition().y, 16, 16);
-                    FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 16, 16, 16);
-                    FloatRect spriteRectL(maposo->sprites[j][i]->getPosition().x + 16, maposo->sprites[j][i]->getPosition().y, 16, 16);
-                    FloatRect spriteRectU(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y + 16, 16, 16);
+                    FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x - 8, maposo->sprites[j][i]->getPosition().y, 16, 16);
+                    FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 8, 16, 16);
+                    FloatRect spriteRectL(maposo->sprites[j][i]->getPosition().x + 8, maposo->sprites[j][i]->getPosition().y, 16, 16);
+                    FloatRect spriteRectU(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y + 8, 16, 16);
                     FloatRect jugadorRect(enemy->getPosition().x, enemy->getPosition().y, 16, 16);
                     // colision a la derecha
                     if(jugadorRect.intersects(spriteRectR)){

@@ -4,7 +4,7 @@
 using namespace std;
 using namespace sf;
 
-#define kVel 1
+#define kVel 0.04
 
 Juego::Juego(sf::Vector2u resolucion){
     //Creamos una ventana
@@ -20,7 +20,8 @@ Juego::Juego(sf::Vector2u resolucion){
       enemy1->update(maposo);
       enemy2->update(maposo);
       enemy3->update(maposo);
-      maposo->update(pulsado, xx, yy);
+      this->choqueBloque();
+      //cout << pulsado << endl;
       procesarColisionesPengoSnoobee();
       this->dibujar();  
     }
@@ -32,9 +33,9 @@ void Juego::iniciar(){
   j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
   maposo = new Map();
-  enemy1 = new Enemigo(10, 10);
-  enemy2 = new Enemigo(10, 20);
-  enemy3 = new Enemigo(20, 15);
+  enemy1 = new Enemigo(20, 20);
+  enemy2 = new Enemigo(20, 40);
+  enemy3 = new Enemigo(40, 30);
 }
 
 void Juego::dibujar(){
@@ -60,7 +61,7 @@ void Juego::procesarEventos(){
             break;
           }
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Right)){
-            pulsado = false;
+            j1->getSprite()->setTextureRect(sf::IntRect(96, 1, 16, 15));
             procesarColisiones();
             if(right == true){
               j1->move(Stay);
@@ -83,7 +84,6 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla izquierda
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            pulsado = false;
             j1->getSprite()->setTextureRect(sf::IntRect(32, 1, 16, 15));
             procesarColisiones();
             if(left == true){
@@ -107,7 +107,7 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla arriba
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            pulsado = false;
+            j1->getSprite()->setTextureRect(sf::IntRect(64, 0, 16, 16));
             procesarColisiones();
             if(up == true){
               j1->move(Stay);
@@ -130,7 +130,7 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla abajo
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-            pulsado = false;
+            j1->getSprite()->setTextureRect(sf::IntRect(0, 0, 16, 16));
             procesarColisiones();
             if(down == true){
               j1->move(Stay);
@@ -154,6 +154,8 @@ void Juego::procesarEventos(){
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
             procesarColisiones();
             if(left == true){
+              xxx = xx;
+              yyy = yy;
               pulsado = true;
             }
           }
@@ -161,7 +163,6 @@ void Juego::procesarEventos(){
         default:
           break;
     }
-    //j1->update();
 }
 
 void Juego::procesarColisiones(){
@@ -175,24 +176,24 @@ void Juego::procesarColisiones(){
         FloatRect jugadorRect(j1->getSprite()->getPosition().x, j1->getSprite()->getPosition().y, 16, 16);
         // colision a la derecha
         if(jugadorRect.intersects(spriteRectR)){
-          cout << "Tocando derecha" << endl;
+          //cout << "Tocando derecha" << endl;
           right = true;
         }
         // colision a la izquierda
         if(jugadorRect.intersects(spriteRectL)){
           xx = j;
           yy = i;
-          cout << "Tocando izquierda" << endl;
+          //cout << "Tocando izquierda" << endl;
           left = true;
         }
         // colision arriba
         if(jugadorRect.intersects(spriteRectU)){
-          cout << "Tocando arriba" << endl;
+          //cout << "Tocando arriba" << endl;
           up = true;
         }
         // colision abajo
         if(jugadorRect.intersects(spriteRectD)){
-          cout << "Tocando abajo" << endl;
+          //cout << "Tocando abajo" << endl;
           down = true;
         }
       }
@@ -219,4 +220,31 @@ void Juego::procesarColisionesPengoSnoobee(){
         relojaso.restart();
     }
   }
+}
+
+void Juego::choqueBloque(){
+  if(maposo->sprites[xxx][yyy] != nullptr){
+    maposo->sprites[xxx][yyy]->move(0, 0);
+    if(pulsado == true){
+      maposo->sprites[xxx][yyy]->move(-kVel, 0);
+      for(int i = 0; i < 16; i++){
+        for(int j = 0; j < 16; j++){
+          if(maposo->sprites[j][i] != nullptr){
+            if(maposo->sprites[j][i] != maposo->sprites[xxx][yyy]){
+              if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[xxx][yyy]->getGlobalBounds())){
+                cout << maposo->sprites[j][i]->getPosition().x << ", " << maposo->sprites[j][i]->getPosition().y << endl;
+                cout << maposo->sprites[xxx][yyy]->getPosition().x << ", " << maposo->sprites[xxx][yyy]->getPosition().y << endl;
+                cout << "Entrando al if" << endl;
+                pulsado = false;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+void Juego::choqueBloquePengo(){
+  
 }

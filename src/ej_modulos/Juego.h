@@ -15,7 +15,7 @@ class Juego{
         bool right = false, left = false, up = false, down = false;
         bool pulsado = false;
         int x = 0, y = 0, z = 0, j = 0;
-        int xx = 0, yy = 0;
+        int xx = 0, yy = 0, xxx = 0, yyy = 0;
         int avanza = 0;
         float sgs = 0;
         Clock relojaso;
@@ -27,6 +27,9 @@ class Juego{
         void procesarEventos();
         void procesarColisiones();
         void procesarColisionesPengoSnoobee();
+        void colisionBloqueMov(int, int);
+        void choqueBloque();
+        void choqueBloquePengo();
     private:
         bool gameover = false;
         RenderWindow *ventana;

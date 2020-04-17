@@ -63,8 +63,7 @@ using namespace sf;
 
     }
 
-    void Jugador::update()
-    {   
+    void Jugador::update(){   
         jugador->setPosition(xxx, yyy);
 
         if (xxx < gridX * 16) //moving right
