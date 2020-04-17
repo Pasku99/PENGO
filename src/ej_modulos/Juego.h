@@ -17,6 +17,8 @@ class Juego{
         int x = 0, y = 0, z = 0, j = 0;
         int xx = 0, yy = 0, xxx = 0, yyy = 0;
         int avanza = 0;
+        int posAnt = 0, posDesp = 0;
+        int contIt = 0, conti = 0;
         float sgs = 0;
         Clock relojaso;
         bool dibujado = false;

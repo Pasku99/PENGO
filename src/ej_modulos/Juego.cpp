@@ -7,25 +7,25 @@ using namespace sf;
 #define kVel 0.04
 
 Juego::Juego(sf::Vector2u resolucion){
-    //Creamos una ventana
-    ventana = new RenderWindow(sf::VideoMode(resolucion.x,resolucion.y), "Pengo");
-    // Inicializamos todo
-    this->iniciar();
-    srand(time(NULL));
-    while(gameover == false){
-      while(ventana->pollEvent(*evento)){
-        procesarEventos();
-      }
-      j1->update();
-      enemy1->update(maposo);
-      enemy2->update(maposo);
-      enemy3->update(maposo);
-      this->choqueBloque();
-      //cout << pulsado << endl;
-      procesarColisionesPengoSnoobee();
-      this->dibujar();  
+  //Creamos una ventana
+  ventana = new RenderWindow(sf::VideoMode(resolucion.x,resolucion.y), "Pengo");
+  // Inicializamos todo
+  this->iniciar();
+  srand(time(NULL));
+  while(gameover == false){
+    while(ventana->pollEvent(*evento)){
+      procesarEventos();
     }
-  
+    j1->update();
+    enemy1->update(maposo);
+    enemy2->update(maposo);
+    enemy3->update(maposo);
+    this->choqueBloque();
+    conti++;
+    this->choqueBloquePengo();
+    procesarColisionesPengoSnoobee();
+    this->dibujar(); 
+  }
 }
 
 void Juego::iniciar(){
@@ -224,9 +224,18 @@ void Juego::procesarColisionesPengoSnoobee(){
 
 void Juego::choqueBloque(){
   if(maposo->sprites[xxx][yyy] != nullptr){
+    if(conti >= 25){
+      posAnt = maposo->sprites[xxx][yyy]->getPosition().x;
+      cout << "Anterior: " << posAnt << endl;
+    }
     maposo->sprites[xxx][yyy]->move(0, 0);
     if(pulsado == true){
       maposo->sprites[xxx][yyy]->move(-kVel, 0);
+      if(conti >= 25){
+        posDesp = maposo->sprites[xxx][yyy]->getPosition().x;
+        cout << "Posterior: " << posDesp << endl;
+        conti = 0;
+      }
       for(int i = 0; i < 16; i++){
         for(int j = 0; j < 16; j++){
           if(maposo->sprites[j][i] != nullptr){
@@ -246,5 +255,7 @@ void Juego::choqueBloque(){
 }
 
 void Juego::choqueBloquePengo(){
-  
+  if(posAnt == posDesp){
+    cout << "Ahi lo tenemos chicosss" << endl;
+  }
 }
