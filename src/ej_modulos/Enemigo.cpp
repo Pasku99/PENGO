@@ -96,8 +96,9 @@ using namespace sf;
         }
     }
 
-    void Enemigo::update(Map *maposo){
-        enemy->setPosition(xxx, yyy);
+    void Enemigo::update(Map *maposo, bool esGolpeado){
+        if(esGolpeado == false){  
+            enemy->setPosition(xxx, yyy);
 
             if (xxx < gridX * 8) //moving right
                 xxx = min(xxx + velocidad, float(gridX * 8));
@@ -108,567 +109,568 @@ using namespace sf;
                 yyy = min(yyy + velocidad, float(gridY * 8));
             else if (yyy > gridY * 8) //moving up
                 yyy = max(yyy - velocidad, float(gridY * 8));
-                
-        procesarColisionesEnemigo(maposo);
-        int random = rand()%4;
-        float sgs2 = relojero.getElapsedTime().asSeconds();
-        if(sgs2 >= 0.3){
-            //cout << random << endl;
-            if(right == false && down == false && up == false && left == false){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+      
+            procesarColisionesEnemigo(maposo);
+            int random = rand()%4;
+            float sgs2 = relojero.getElapsedTime().asSeconds();
+            if(sgs2 >= 0.3){
+                //cout << random << endl;
+                if(right == false && down == false && up == false && left == false){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 2){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else{
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else{
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }
-            }
-            if(right == true && down == true && up == true && left == false){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1 || random == 2 || random == 3){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(right == true && down == true && up == false && left == true){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1 || random == 2 || random == 3){
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true && down == true && up == true && left == false){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1 || random == 2 || random == 3){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(right == true && down == false && up == true && left == true){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true && down == true && up == false && left == true){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1 || random == 2 || random == 3){
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2 || random == 3){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(right == false && down == true && up == true && left == true){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1 || random == 2 || random == 3){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true && down == false && up == true && left == true){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
+                    }else if(random == 2 || random == 3){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
                     }
                 }
-            }
-            if(right == false && down == false && up == true && left == true){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1 || random == 2 || random == 3){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == false && down == true && up == true && left == true){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1 || random == 2 || random == 3){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }/*else if(random == 2 || random == 3){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-                */
-            }
-            if(right == false && down == true && up == false && left == true){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == false && down == false && up == true && left == true){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1 || random == 2 || random == 3){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
+                    }/*else if(random == 2 || random == 3){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
                     }
-                }else if(random == 2 || random == 3){
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    */
+                }
+                if(right == false && down == true && up == false && left == true){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
+                    }else if(random == 2 || random == 3){
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
                     }
                 }
-            }
-            if(right == false && down == true && up == true && left == false){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == false && down == true && up == true && left == false){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2 || random == 3){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 2 || random == 3){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }
-            }
-            if(right == true && down == false && up == false && left == true){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else if(random == 2 || random == 3){
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(right == true && down == false && up == true && left == false){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true && down == false && up == false && left == true){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2 || random == 3){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 2 || random == 3){
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }
-            }
-            if(right == true && down == true && up == false && left == false){
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0 || random == 1){
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else if(random == 2 || random == 3){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(right == true){
-                //cout << "Toca derecha" << endl;
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true && down == false && up == true && left == false){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 2 || random == 3){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else{
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(down == true){
-                //cout << "Toca abajo" << endl;
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true && down == true && up == false && left == false){
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0 || random == 1){
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 1){
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 2 || random == 3){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else{
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
-            }
-            if(up == true){
-                //cout << "Toca arriba" << endl;
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                if(right == true){
+                    //cout << "Toca derecha" << endl;
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else if(random == 2){
-                    this->move(Izquierda);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteL(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else if(random == 2){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }else{
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
+                    }else{
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
                         }
-                        relojaso.restart();
-                    }
-                }
-            }
-            if(left == true){
-                //cout << "Toca izquierda" << endl;
-                left = false;
-                right = false;
-                up = false;
-                down = false;
-                if(random == 0){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else if(random == 1){
-                    this->move(Abajo);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteD(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else if(random == 2){
-                    this->move(Derecha);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteR(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
-                    }
-                }else{
-                    this->move(Arriba);
-                    sgs = relojaso.getElapsedTime().asSeconds();
-                    if(sgs >= 0.2){
-                        avanza++;
-                        this->cambiarSpriteU(avanza);
-                        if(avanza == 2){
-                            // yasta = true;
-                            avanza = -1;
-                        }
-                        relojaso.restart();
                     }
                 }
+                if(down == true){
+                    //cout << "Toca abajo" << endl;
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else if(random == 1){
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else if(random == 2){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else{
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }
+                }
+                if(up == true){
+                    //cout << "Toca arriba" << endl;
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else if(random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else if(random == 2){
+                        this->move(Izquierda);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteL(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else{
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }
+                }
+                if(left == true){
+                    //cout << "Toca izquierda" << endl;
+                    left = false;
+                    right = false;
+                    up = false;
+                    down = false;
+                    if(random == 0){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else if(random == 1){
+                        this->move(Abajo);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteD(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else if(random == 2){
+                        this->move(Derecha);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteR(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }else{
+                        this->move(Arriba);
+                        sgs = relojaso.getElapsedTime().asSeconds();
+                        if(sgs >= 0.2){
+                            avanza++;
+                            this->cambiarSpriteU(avanza);
+                            if(avanza == 2){
+                                // yasta = true;
+                                avanza = -1;
+                            }
+                            relojaso.restart();
+                        }
+                    }
+                }
+                relojero.restart();
             }
-            relojero.restart();
         }
     }
 

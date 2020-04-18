@@ -32,7 +32,7 @@ class Enemigo{
         bool isMoving();
         void warp(int gridX, int gridY);
         void move(DirE);
-        void update(Map*);
+        void update(Map*, bool);
         void procesarColisionesEnemigo(Map*);
         Vector2f getCoors();
         Sprite *getSprite();
