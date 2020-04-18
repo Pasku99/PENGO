@@ -15,6 +15,7 @@ class Juego{
         bool right = false, left = false, up = false, down = false;
         bool pulsado = false, pulsadoD = false, pulsadoA = false, pulsadoDown = false;
         bool esGolpeado = false, esGolpeado2 = false, esGolpeado3 = false;
+        bool entrando = false;
         int x = 0, y = 0, z = 0, j = 0;
         bool izda = false, arriba = false, dreta = false, abajo = false;
         int xx = 0, yy = 0, xxd = 0, yyd = 0, xxdd = 0, yydd = 0, xxx = 0, yyy = 0;
@@ -22,9 +23,11 @@ class Juego{
         int avanza = 0;
         int posAnt = 0, posDesp = 0, posAntDe = 0, posDespDe = 0, posAntUp = 0, posDespUp = 0, posAntDo = 0, posDespDo = 0;
         int contIt = 0, conti = 0, contiD = 0, contiA = 0, contiAb = 0;
-        float sgs = 0;
-        Clock relojaso;
-        bool dibujado = false, chocado = false;
+        int nuevax = 0, nuevay = 0;
+        int comienza = 0;
+        float sgs = 0, sgs2 = 0;
+        Clock relojaso, relojero;
+        bool dibujado = false, chocado = false, espacio = false;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();
@@ -42,6 +45,7 @@ class Juego{
         void choqueBloquePengoUp();
         void choqueBloquePengoDown();
         void romperBloque();
+        void cambiarSprite(int, Sprite*);
     private:
         bool gameover = false;
         RenderWindow *ventana;
@@ -50,6 +54,7 @@ class Juego{
         Map *maposo;
         Enemigo *enemigos[3];
         Sprite *guardado;
+        Texture *tex = new Texture();
 };
 
 #endif

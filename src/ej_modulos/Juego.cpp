@@ -4,7 +4,7 @@
 using namespace std;
 using namespace sf;
 
-#define kVel 0.04
+#define kVel 0.1
 
 Juego::Juego(sf::Vector2u resolucion){
   //Creamos una ventana
@@ -34,7 +34,9 @@ Juego::Juego(sf::Vector2u resolucion){
     this->choqueBloquePengoUp();
     //this->choqueBloquePengoDe();
     procesarColisionesPengoSnoobee();
-    romperBloque();
+    if(chocado == true){
+      romperBloque();
+    }
     this->dibujar(); 
   }
 }
@@ -282,7 +284,7 @@ void Juego::choqueBloqueIz(){
             if(maposo->sprites[j][i] != nullptr){
               if(maposo->sprites[j][i] != maposo->sprites[xxx][yyy]){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[xxx][yyy]->getGlobalBounds())){
-                  cout << "Entrando al if izquierrda" << endl;
+                  //cout << "Entrando al if izquierrda" << endl;
                   pulsado = false;
                   izda = false;
                 }
@@ -315,7 +317,7 @@ void Juego::choqueBloqueDe(){
             if(maposo->sprites[j][i] != nullptr){
               if(maposo->sprites[j][i] != maposo->sprites[xxdd][yydd]){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[xxdd][yydd]->getGlobalBounds())){
-                  cout << "Entrando al if derecha" << endl;
+                  //cout << "Entrando al if derecha" << endl;
                   pulsadoD = false;
                   dreta = false;
                 }
@@ -348,7 +350,7 @@ void Juego::choqueBloqueUp(){
             if(maposo->sprites[j][i] != nullptr){
               if(maposo->sprites[j][i] != maposo->sprites[uxx][uyy]){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[uxx][uyy]->getGlobalBounds())){
-                  cout << "Entrando al if arriba" << endl;
+                  //cout << "Entrando al if arriba" << endl;
                   pulsadoA = false;
                   arriba = false;
                 }
@@ -381,7 +383,7 @@ void Juego::choqueBloqueDown(){
             if(maposo->sprites[j][i] != nullptr){
               if(maposo->sprites[j][i] != maposo->sprites[dxx][dyy]){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[dxx][dyy]->getGlobalBounds())){
-                  cout << "Entrando al if abajo" << endl;
+                  //cout << "Entrando al if abajo" << endl;
                   pulsadoDown = false;
                   abajo = false;
                 }
@@ -411,7 +413,7 @@ void Juego::choqueBloquePengoIz(){
       }
     }
     if(pulsado == false){
-      cout << "Confirmamos choque" << endl;
+      //cout << "Confirmamos choque" << endl;
       chocado = true;
       guardado = maposo->sprites[xxx][yyy];
     }
@@ -476,7 +478,57 @@ void Juego::choqueBloquePengoDown(){
 }
 
 void Juego::romperBloque(){
-  if(chocado == true){
-    guardado->setColor(Color::Red);
+  nuevax = guardado->getPosition().x;
+  nuevay = guardado->getPosition().y;
+  FloatRect spriteRectL(guardado->getPosition().x, guardado->getPosition().y, 16, 16);
+  if(j1->getSprite()->getGlobalBounds().intersects(spriteRectL)){
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+      espacio = true;
+    }
+    if(espacio == true){
+      sgs2 = relojero.getElapsedTime().asSeconds();
+      if(sgs2 >= 0.1){
+        cambiarSprite(comienza, guardado);
+        comienza++;
+        if(comienza == 9){
+          comienza = 0;
+          //entrando = true;
+          chocado = false;
+          guardado->setPosition(0, 0);
+          espacio = false;
+        }
+        relojero.restart();
+      }
+    }
+  }
+}
+
+void Juego::cambiarSprite(int x, Sprite*){
+  if(x == 0){
+      guardado->setTextureRect(sf::IntRect(708, 48, 16, 16));
+  }
+  if(x == 1){
+      guardado->setTextureRect(sf::IntRect(708 + 16, 48, 16, 16));
+  }
+  if(x == 2){
+      guardado->setTextureRect(sf::IntRect(708 + 32, 48, 16, 16));
+  }
+  if(x == 3){
+      guardado->setTextureRect(sf::IntRect(708 + 48, 48, 16, 16));
+  }
+  if(x == 4){
+      guardado->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
+  }
+  if(x == 5){
+      guardado->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+  }
+  if(x == 6){
+      guardado->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
+  }
+  if(x == 7){
+      guardado->setTextureRect(sf::IntRect(708 + 112, 48, 16, 16));
+  }
+  if(x == 8){
+      guardado->setTextureRect(sf::IntRect(708 + 128, 48, 16, 16));
   }
 }
