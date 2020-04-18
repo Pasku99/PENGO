@@ -27,7 +27,7 @@ class Juego{
         int comienza = 0;
         float sgs = 0, sgs2 = 0;
         Clock relojaso, relojero;
-        bool dibujado = false, chocado = false, espacio = false;
+        bool dibujado = false, chocado = false, chocadoD = false, espacio = false;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();
@@ -45,7 +45,9 @@ class Juego{
         void choqueBloquePengoUp();
         void choqueBloquePengoDown();
         void romperBloque();
+        void romperBloqueD();
         void cambiarSprite(int, Sprite*);
+        void cambiarSpriteR(int, Sprite*);
     private:
         bool gameover = false;
         RenderWindow *ventana;
@@ -54,6 +56,7 @@ class Juego{
         Map *maposo;
         Enemigo *enemigos[3];
         Sprite *guardado;
+        Sprite *guardadoD;
         Texture *tex = new Texture();
 };
 

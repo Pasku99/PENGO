@@ -4,7 +4,7 @@
 using namespace std;
 using namespace sf;
 
-#define kVel 0.1
+#define kVel 0.04
 
 Juego::Juego(sf::Vector2u resolucion){
   //Creamos una ventana
@@ -37,6 +37,9 @@ Juego::Juego(sf::Vector2u resolucion){
     if(chocado == true){
       romperBloque();
     }
+    if(chocadoD == true){
+      romperBloqueD();
+    }
     this->dibujar(); 
   }
 }
@@ -48,7 +51,7 @@ void Juego::iniciar(){
   maposo = new Map();
   enemigos[0] = new Enemigo(20, 20);
   enemigos[1] = new Enemigo(20, 40);
-  enemigos[2] = new Enemigo(43, 30);
+  enemigos[2] = new Enemigo(42, 30);
 }
 
 void Juego::dibujar(){
@@ -266,19 +269,19 @@ void Juego::procesarColisionesPengoSnoobee(){
 
 void Juego::choqueBloqueIz(){
   if(maposo->sprites[xxx][yyy] != nullptr){
-    if(conti >= 25){
+    if(conti == 25){
       posAnt = maposo->sprites[xxx][yyy]->getPosition().x;
       //cout << "Anterior: " << posAnt << endl;
+    }
+    if(conti >= 50){
+      posDesp = maposo->sprites[xxx][yyy]->getPosition().x;
+      //cout << "Posterior: " << posDesp << endl;
+      conti = 0;
     }
     maposo->sprites[xxx][yyy]->move(0, 0);
     if(pulsado == true){
       //if(izda == true){
         maposo->sprites[xxx][yyy]->move(-kVel, 0);
-        if(conti >= 25){
-          posDesp = maposo->sprites[xxx][yyy]->getPosition().x;
-          //cout << "Posterior: " << posDesp << endl;
-          conti = 0;
-        }
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
             if(maposo->sprites[j][i] != nullptr){
@@ -286,7 +289,7 @@ void Juego::choqueBloqueIz(){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[xxx][yyy]->getGlobalBounds())){
                   //cout << "Entrando al if izquierrda" << endl;
                   pulsado = false;
-                  izda = false;
+                  //izda = false;
                 }
               }
             }
@@ -299,19 +302,19 @@ void Juego::choqueBloqueIz(){
 
 void Juego::choqueBloqueDe(){
   if(maposo->sprites[xxdd][yydd] != nullptr){
-    if(contiD >= 25){
+    if(contiD == 25){
       posAntDe = maposo->sprites[xxdd][yydd]->getPosition().x;
-      //cout << "Anterior: " << posAnt << endl;
+      //cout << "Anterior: " << posAntDe << endl;
+    }
+    if(contiD >= 50){
+      posDespDe = maposo->sprites[xxdd][yydd]->getPosition().x;
+      //cout << "Posterior: " << posDespDe << endl;
+      contiD = 0;
     }
     maposo->sprites[xxdd][yydd]->move(0, 0);
     if(pulsadoD == true){
       //if(dreta == true){
         maposo->sprites[xxdd][yydd]->move(kVel, 0);
-        if(contiD >= 25){
-          posDespDe = maposo->sprites[xxdd][yydd]->getPosition().x;
-          //cout << "Posterior: " << posDesp << endl;
-          contiD = 0;
-        }
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
             if(maposo->sprites[j][i] != nullptr){
@@ -319,7 +322,7 @@ void Juego::choqueBloqueDe(){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[xxdd][yydd]->getGlobalBounds())){
                   //cout << "Entrando al if derecha" << endl;
                   pulsadoD = false;
-                  dreta = false;
+                  //dreta = false;
                 }
               }
             }
@@ -332,19 +335,19 @@ void Juego::choqueBloqueDe(){
 
 void Juego::choqueBloqueUp(){
   if(maposo->sprites[uxx][uyy] != nullptr){
-    if(contiA >= 25){
+    if(contiA == 25){
       posAntUp = maposo->sprites[uxx][uyy]->getPosition().y;
-      //cout << "Anterior: " << posAnt << endl;
+      //cout << "Anterior: " << posAntUp << endl;
+    }
+    if(contiA >= 50){
+      posDespUp = maposo->sprites[uxx][uyy]->getPosition().y;
+      //cout << "Posterior: " << posDespUp << endl;
+      contiA = 0;
     }
     maposo->sprites[uxx][uyy]->move(0, 0);
     if(pulsadoA == true){
       //if(arriba == true){
         maposo->sprites[uxx][uyy]->move(0, -kVel);
-        if(contiA >= 25){
-          posDespUp = maposo->sprites[uxx][uyy]->getPosition().y;
-          //cout << "Posterior: " << posDesp << endl;
-          contiA = 0;
-        }
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
             if(maposo->sprites[j][i] != nullptr){
@@ -352,7 +355,7 @@ void Juego::choqueBloqueUp(){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[uxx][uyy]->getGlobalBounds())){
                   //cout << "Entrando al if arriba" << endl;
                   pulsadoA = false;
-                  arriba = false;
+                  //arriba = false;
                 }
               }
             }
@@ -365,19 +368,19 @@ void Juego::choqueBloqueUp(){
 
 void Juego::choqueBloqueDown(){
   if(maposo->sprites[dxx][dyy] != nullptr){
-    if(contiAb >= 25){
+    if(contiAb == 25){
       posAntDo = maposo->sprites[dxx][dyy]->getPosition().y;
-      //cout << "Anterior: " << posAnt << endl;
+      //cout << "Anterior: " << posAntDo << endl;
+    }
+    if(contiAb >= 50){
+      posDespDo = maposo->sprites[dxx][dyy]->getPosition().y;
+      //cout << "Posterior: " << posDespDo << endl;
+      contiAb = 0;
     }
     maposo->sprites[dxx][dyy]->move(0, 0);
     if(pulsadoDown == true){
       //if(abajo == true){
         maposo->sprites[dxx][dyy]->move(0, kVel);
-        if(contiAb >= 25){
-          posDespDo = maposo->sprites[dxx][dyy]->getPosition().y;
-          //cout << "Posterior: " << posDesp << endl;
-          contiAb = 0;
-        }
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
             if(maposo->sprites[j][i] != nullptr){
@@ -385,7 +388,7 @@ void Juego::choqueBloqueDown(){
                 if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[dxx][dyy]->getGlobalBounds())){
                   //cout << "Entrando al if abajo" << endl;
                   pulsadoDown = false;
-                  abajo = false;
+                  //abajo = false;
                 }
               }
             }
@@ -401,15 +404,15 @@ void Juego::choqueBloquePengoIz(){
     if(maposo->sprites[xxx][yyy] != nullptr){
       if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemigos[0]->getSprite()->move(-kVel, 0);
+        enemigos[0]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
       }
       if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
-        enemigos[1]->getSprite()->move(-kVel, 0);
+        enemigos[1]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
       }
       if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
         esGolpeado3 = true;
-        enemigos[2]->getSprite()->move(-kVel, 0);
+        enemigos[2]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
       }
     }
     if(pulsado == false){
@@ -425,16 +428,22 @@ void Juego::choqueBloquePengoDe(){
     if(maposo->sprites[xxdd][yydd] != nullptr){
       if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemigos[0]->getSprite()->move(kVel, 0);
+        enemigos[0]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
       }
       if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
-        enemigos[1]->getSprite()->move(kVel, 0);
+        enemigos[1]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
       }
       if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
+        //cout << "Esta intersectando" << endl;
         esGolpeado3 = true;
-        enemigos[2]->getSprite()->move(kVel, 0);
+        enemigos[2]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
       }
+    }
+    if(pulsadoD == false){
+        //cout << "Confirmamos choque" << endl;
+        chocadoD = true;
+        guardadoD = maposo->sprites[xxdd][yydd];
     }
   }
 }
@@ -444,15 +453,15 @@ void Juego::choqueBloquePengoUp(){
     if(maposo->sprites[uxx][uyy] != nullptr){
       if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemigos[0]->getSprite()->move(0, -kVel);
+        enemigos[0]->getSprite()->setPosition(maposo->sprites[uxx][uyy]->getPosition().x, maposo->sprites[uxx][uyy]->getPosition().y - 16);
       }
       if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
-        enemigos[1]->getSprite()->move(0, -kVel);
+        enemigos[1]->getSprite()->setPosition(maposo->sprites[uxx][uyy]->getPosition().x, maposo->sprites[uxx][uyy]->getPosition().y - 16);
       }
       if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
         esGolpeado3 = true;
-        enemigos[2]->getSprite()->move(0, -kVel);
+        enemigos[2]->getSprite()->setPosition(maposo->sprites[uxx][uyy]->getPosition().x, maposo->sprites[uxx][uyy]->getPosition().y - 16);
       }
     }
   }
@@ -463,23 +472,21 @@ void Juego::choqueBloquePengoDown(){
     if(maposo->sprites[dxx][dyy] != nullptr){
       if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemigos[0]->getSprite()->move(0, kVel);
+        enemigos[0]->getSprite()->setPosition(maposo->sprites[dxx][dyy]->getPosition().x, maposo->sprites[dxx][dyy]->getPosition().y + 16);
       }
       if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
-        enemigos[1]->getSprite()->move(0, kVel);
+        enemigos[1]->getSprite()->setPosition(maposo->sprites[dxx][dyy]->getPosition().x, maposo->sprites[dxx][dyy]->getPosition().y + 16);
       }
       if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
         esGolpeado3 = true;
-        enemigos[2]->getSprite()->move(0, kVel);
+        enemigos[2]->getSprite()->setPosition(maposo->sprites[dxx][dyy]->getPosition().x, maposo->sprites[dxx][dyy]->getPosition().y + 16);
       }
     }
   }
 }
 
 void Juego::romperBloque(){
-  nuevax = guardado->getPosition().x;
-  nuevay = guardado->getPosition().y;
   FloatRect spriteRectL(guardado->getPosition().x, guardado->getPosition().y, 16, 16);
   if(j1->getSprite()->getGlobalBounds().intersects(spriteRectL)){
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
@@ -487,7 +494,7 @@ void Juego::romperBloque(){
     }
     if(espacio == true){
       sgs2 = relojero.getElapsedTime().asSeconds();
-      if(sgs2 >= 0.1){
+      if(sgs2 >= 0.05){
         cambiarSprite(comienza, guardado);
         comienza++;
         if(comienza == 9){
@@ -495,6 +502,32 @@ void Juego::romperBloque(){
           //entrando = true;
           chocado = false;
           guardado->setPosition(0, 0);
+          espacio = false;
+        }
+        relojero.restart();
+      }
+    }
+  }
+}
+
+void Juego::romperBloqueD(){
+  FloatRect spriteRectR(guardadoD->getPosition().x - 16, guardadoD->getPosition().y - 16, 16, 16);
+  //cout << guardadoD->getPosition().x << " , " << guardadoD->getPosition().y << " : " << j1->getSprite()->getPosition().x << " , " << j1->getSprite()->getPosition().y << endl;
+  if(j1->getSprite()->getGlobalBounds().intersects(spriteRectR)){
+    cout << "Tocando" << endl;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+      espacio = true;
+    }
+    if(espacio == true){
+      sgs2 = relojero.getElapsedTime().asSeconds();
+      if(sgs2 >= 0.05){
+        cambiarSpriteR(comienza, guardadoD);
+        comienza++;
+        if(comienza == 9){
+          comienza = 0;
+          //entrando = true;
+          chocadoD = false;
+          guardadoD->setPosition(0, 0);
           espacio = false;
         }
         relojero.restart();
@@ -530,5 +563,35 @@ void Juego::cambiarSprite(int x, Sprite*){
   }
   if(x == 8){
       guardado->setTextureRect(sf::IntRect(708 + 128, 48, 16, 16));
+  }
+}
+
+void Juego::cambiarSpriteR(int x, Sprite*){
+  if(x == 0){
+      guardadoD->setTextureRect(sf::IntRect(708, 48, 16, 16));
+  }
+  if(x == 1){
+      guardadoD->setTextureRect(sf::IntRect(708 + 16, 48, 16, 16));
+  }
+  if(x == 2){
+      guardadoD->setTextureRect(sf::IntRect(708 + 32, 48, 16, 16));
+  }
+  if(x == 3){
+      guardadoD->setTextureRect(sf::IntRect(708 + 48, 48, 16, 16));
+  }
+  if(x == 4){
+      guardadoD->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
+  }
+  if(x == 5){
+      guardadoD->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+  }
+  if(x == 6){
+      guardadoD->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
+  }
+  if(x == 7){
+      guardadoD->setTextureRect(sf::IntRect(708 + 112, 48, 16, 16));
+  }
+  if(x == 8){
+      guardadoD->setTextureRect(sf::IntRect(708 + 128, 48, 16, 16));
   }
 }
