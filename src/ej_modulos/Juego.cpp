@@ -17,9 +17,9 @@ Juego::Juego(sf::Vector2u resolucion){
       procesarEventos();
     }
     j1->update();
-    enemy1->update(maposo, esGolpeado);
-    //enemy2->update(maposo, esGolpeado);
-    //enemy3->update(maposo, esGolpeado);
+    enemigos[0]->update(maposo, esGolpeado);
+    enemigos[1]->update(maposo, esGolpeado2);
+    enemigos[2]->update(maposo, esGolpeado3);
     this->choqueBloqueIz();
     this->choqueBloqueDe();
     this->choqueBloqueUp();
@@ -43,17 +43,17 @@ void Juego::iniciar(){
   j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
   maposo = new Map();
-  enemy1 = new Enemigo(20, 20);
-  //enemy2 = new Enemigo(20, 40);
-  //enemy3 = new Enemigo(40, 30);
+  enemigos[0] = new Enemigo(20, 20);
+  enemigos[1] = new Enemigo(20, 40);
+  enemigos[2] = new Enemigo(43, 30);
 }
 
 void Juego::dibujar(){
   ventana->clear();
   j1->Draw(*ventana);
-  enemy1->Draw(*ventana);
-  //enemy2->Draw(*ventana);
-  //enemy3->Draw(*ventana);
+  enemigos[0]->Draw(*ventana);
+  enemigos[1]->Draw(*ventana);
+  enemigos[2]->Draw(*ventana);
   maposo->dibujarMapa(*ventana);
   ventana->display();
 }
@@ -251,23 +251,13 @@ void Juego::procesarColisiones(){
 void Juego::procesarColisionesPengoSnoobee(){
   sgs = relojaso.getElapsedTime().asSeconds();
   if(sgs >= 3){
-    if(this->j1->getSprite()->getGlobalBounds().intersects(enemy1->getSprite()->getGlobalBounds())){
-        gameover = this->j1->perderVida(gameover);
-        cout << gameover << endl;
-        relojaso.restart();
+    for(int i = 0; i < 3; i++){
+      if(this->j1->getSprite()->getGlobalBounds().intersects(enemigos[i]->getSprite()->getGlobalBounds())){
+          gameover = this->j1->perderVida(gameover);
+          cout << "Pierde 1 vida" << endl;
+          relojaso.restart();
+      }
     }
-    /*
-    if(this->j1->getSprite()->getGlobalBounds().intersects(enemy2->getSprite()->getGlobalBounds())){
-        gameover = this->j1->perderVida(gameover);
-        cout << gameover << endl;
-        relojaso.restart();
-    }
-    if(this->j1->getSprite()->getGlobalBounds().intersects(enemy3->getSprite()->getGlobalBounds())){
-        gameover = this->j1->perderVida(gameover);
-        cout << gameover << endl;
-        relojaso.restart();
-    }
-    */
   }
 }
 
@@ -406,9 +396,17 @@ void Juego::choqueBloqueDown(){
 void Juego::choqueBloquePengoIz(){
   if(posAnt != posDesp){
     if(maposo->sprites[xxx][yyy] != nullptr){
-      if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemy1->getSprite()->getGlobalBounds())){
+      if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemy1->getSprite()->move(-kVel, 0);
+        enemigos[0]->getSprite()->move(-kVel, 0);
+      }
+      if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
+        esGolpeado2 = true;
+        enemigos[1]->getSprite()->move(-kVel, 0);
+      }
+      if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
+        esGolpeado3 = true;
+        enemigos[2]->getSprite()->move(-kVel, 0);
       }
     }
   }
@@ -417,9 +415,17 @@ void Juego::choqueBloquePengoIz(){
 void Juego::choqueBloquePengoDe(){
   if(posAntDe != posDespDe){
     if(maposo->sprites[xxdd][yydd] != nullptr){
-      if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemy1->getSprite()->getGlobalBounds())){
+      if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemy1->getSprite()->move(kVel, 0);
+        enemigos[0]->getSprite()->move(kVel, 0);
+      }
+      if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
+        esGolpeado2 = true;
+        enemigos[1]->getSprite()->move(kVel, 0);
+      }
+      if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
+        esGolpeado3 = true;
+        enemigos[2]->getSprite()->move(kVel, 0);
       }
     }
   }
@@ -428,9 +434,17 @@ void Juego::choqueBloquePengoDe(){
 void Juego::choqueBloquePengoUp(){
   if(posAntUp != posDespUp){
     if(maposo->sprites[uxx][uyy] != nullptr){
-      if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemy1->getSprite()->getGlobalBounds())){
+      if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemy1->getSprite()->move(0, -kVel);
+        enemigos[0]->getSprite()->move(0, -kVel);
+      }
+      if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
+        esGolpeado2 = true;
+        enemigos[1]->getSprite()->move(0, -kVel);
+      }
+      if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
+        esGolpeado3 = true;
+        enemigos[2]->getSprite()->move(0, -kVel);
       }
     }
   }
@@ -439,9 +453,17 @@ void Juego::choqueBloquePengoUp(){
 void Juego::choqueBloquePengoDown(){
   if(posAntDo != posDespDo){
     if(maposo->sprites[dxx][dyy] != nullptr){
-      if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemy1->getSprite()->getGlobalBounds())){
+      if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
         esGolpeado = true;
-        enemy1->getSprite()->move(0, kVel);
+        enemigos[0]->getSprite()->move(0, kVel);
+      }
+      if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
+        esGolpeado2 = true;
+        enemigos[1]->getSprite()->move(0, kVel);
+      }
+      if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
+        esGolpeado3 = true;
+        enemigos[2]->getSprite()->move(0, kVel);
       }
     }
   }
