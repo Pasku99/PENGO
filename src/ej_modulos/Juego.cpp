@@ -34,6 +34,7 @@ Juego::Juego(sf::Vector2u resolucion){
     this->choqueBloquePengoUp();
     //this->choqueBloquePengoDe();
     procesarColisionesPengoSnoobee();
+    romperBloque();
     this->dibujar(); 
   }
 }
@@ -219,28 +220,28 @@ void Juego::procesarColisiones(){
         if(jugadorRect.intersects(spriteRectR)){
           xxd = j;
           yyd = i;
-          cout << "Tocando derecha" << endl;
+          //cout << "Tocando derecha" << endl;
           right = true;
         }
         // colision a la izquierda
         if(jugadorRect.intersects(spriteRectL)){
           xx = j;
           yy = i;
-          cout << "Tocando izquierda" << endl;
+          //cout << "Tocando izquierda" << endl;
           left = true;
         }
         // colision arriba
         if(jugadorRect.intersects(spriteRectU)){
           ux = j;
           uy = i;
-          cout << "Tocando arriba" << endl;
+          //cout << "Tocando arriba" << endl;
           up = true;
         }
         // colision abajo
         if(jugadorRect.intersects(spriteRectD)){
           dx = j;
           dy = i;
-          cout << "Tocando abajo" << endl;
+          //cout << "Tocando abajo" << endl;
           down = true;
         }
       }
@@ -367,8 +368,8 @@ void Juego::choqueBloqueDown(){
       //cout << "Anterior: " << posAnt << endl;
     }
     maposo->sprites[dxx][dyy]->move(0, 0);
-    //if(pulsadoDown == true){
-      if(abajo == true){
+    if(pulsadoDown == true){
+      //if(abajo == true){
         maposo->sprites[dxx][dyy]->move(0, kVel);
         if(contiAb >= 25){
           posDespDo = maposo->sprites[dxx][dyy]->getPosition().y;
@@ -388,8 +389,8 @@ void Juego::choqueBloqueDown(){
             }
           }
         }
-      }
-    //}
+      //}
+    }
   }
 }
 
@@ -408,6 +409,11 @@ void Juego::choqueBloquePengoIz(){
         esGolpeado3 = true;
         enemigos[2]->getSprite()->move(-kVel, 0);
       }
+    }
+    if(pulsado == false){
+      cout << "Confirmamos choque" << endl;
+      chocado = true;
+      guardado = maposo->sprites[xxx][yyy];
     }
   }
 }
@@ -466,5 +472,11 @@ void Juego::choqueBloquePengoDown(){
         enemigos[2]->getSprite()->move(0, kVel);
       }
     }
+  }
+}
+
+void Juego::romperBloque(){
+  if(chocado == true){
+    guardado->setColor(Color::Red);
   }
 }

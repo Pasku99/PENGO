@@ -24,7 +24,7 @@ class Juego{
         int contIt = 0, conti = 0, contiD = 0, contiA = 0, contiAb = 0;
         float sgs = 0;
         Clock relojaso;
-        bool dibujado = false;
+        bool dibujado = false, chocado = false;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();
@@ -41,6 +41,7 @@ class Juego{
         void choqueBloquePengoDe();
         void choqueBloquePengoUp();
         void choqueBloquePengoDown();
+        void romperBloque();
     private:
         bool gameover = false;
         RenderWindow *ventana;
@@ -48,6 +49,7 @@ class Juego{
         Event *evento;
         Map *maposo;
         Enemigo *enemigos[3];
+        Sprite *guardado;
 };
 
 #endif
