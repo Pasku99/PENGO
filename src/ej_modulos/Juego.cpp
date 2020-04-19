@@ -13,32 +13,53 @@ Juego::Juego(sf::Vector2u resolucion){
   this->iniciar();
   srand(time(NULL));
   while(gameover == false){
-    while(ventana->pollEvent(*evento)){
-      procesarEventos();
+    if(reventao == false){
+      while(ventana->pollEvent(*evento)){
+        procesarEventos();
+      }
+      j1->update();
+      enemigos[0]->update(maposo, esGolpeado);
+      enemigos[1]->update(maposo, esGolpeado2);
+      enemigos[2]->update(maposo, esGolpeado3);
+      this->choqueBloqueIz();
+      this->choqueBloqueDe();
+      this->choqueBloqueUp();
+      this->choqueBloqueDown();
+      conti++;
+      contiD++;
+      contiA++;
+      contiAb++;
+      this->choqueBloquePengoIz();
+      this->choqueBloquePengoDe();
+      this->choqueBloquePengoDown();
+      this->choqueBloquePengoUp();
+      //this->choqueBloquePengoDe();
+      procesarColisionesPengoSnoobee();
+      if(chocado == true){
+        romperBloque();
+      }
+      if(chocadoD == true){
+        romperBloqueD();
+      }
+      if(chocadoA == true){
+        romperBloqueUp();
+      }
+      if(chocadoDo == true){
+        romperBloqueDown();
+      }
     }
-    j1->update();
-    enemigos[0]->update(maposo, esGolpeado);
-    enemigos[1]->update(maposo, esGolpeado2);
-    enemigos[2]->update(maposo, esGolpeado3);
-    this->choqueBloqueIz();
-    this->choqueBloqueDe();
-    this->choqueBloqueUp();
-    this->choqueBloqueDown();
-    conti++;
-    contiD++;
-    contiA++;
-    contiAb++;
-    this->choqueBloquePengoIz();
-    this->choqueBloquePengoDe();
-    this->choqueBloquePengoDown();
-    this->choqueBloquePengoUp();
-    //this->choqueBloquePengoDe();
-    procesarColisionesPengoSnoobee();
-    if(chocado == true){
-      romperBloque();
-    }
-    if(chocadoD == true){
-      romperBloqueD();
+    else{
+      sgsR = reiniciador.getElapsedTime().asSeconds();
+      AnimacionPengoMuriendo();
+      cout << sgsR << endl;
+      if(sgsR >= 5.5){
+        j1->warp(16, 9);
+        j1->getSprite()->setTextureRect(sf::IntRect(96, 1, 16, 15));
+      }
+      if(sgsR >= 6){
+        reiniciador.restart();
+        reventao = false;
+      }
     }
     this->dibujar(); 
   }
@@ -261,6 +282,7 @@ void Juego::procesarColisionesPengoSnoobee(){
       if(this->j1->getSprite()->getGlobalBounds().intersects(enemigos[i]->getSprite()->getGlobalBounds())){
           gameover = this->j1->perderVida(gameover);
           cout << "Pierde 1 vida" << endl;
+          reventao = true;
           relojaso.restart();
       }
     }
@@ -464,6 +486,11 @@ void Juego::choqueBloquePengoUp(){
         enemigos[2]->getSprite()->setPosition(maposo->sprites[uxx][uyy]->getPosition().x, maposo->sprites[uxx][uyy]->getPosition().y - 16);
       }
     }
+    if(pulsadoA == false){
+      //cout << "Confirmamos choque" << endl;
+      chocadoA = true;
+      guardadoA = maposo->sprites[uxx][uyy];
+    }
   }
 }
 
@@ -483,6 +510,11 @@ void Juego::choqueBloquePengoDown(){
         enemigos[2]->getSprite()->setPosition(maposo->sprites[dxx][dyy]->getPosition().x, maposo->sprites[dxx][dyy]->getPosition().y + 16);
       }
     }
+    if(pulsadoDown == false){
+      //cout << "Confirmamos choque" << endl;
+      chocadoDo = true;
+      guardadoDo = maposo->sprites[dxx][dyy];
+    }
   }
 }
 
@@ -494,7 +526,7 @@ void Juego::romperBloque(){
     }
     if(espacio == true){
       sgs2 = relojero.getElapsedTime().asSeconds();
-      if(sgs2 >= 0.05){
+      if(sgs2 >= 0.03){
         cambiarSprite(comienza, guardado);
         comienza++;
         if(comienza == 9){
@@ -511,16 +543,16 @@ void Juego::romperBloque(){
 }
 
 void Juego::romperBloqueD(){
-  FloatRect spriteRectR(guardadoD->getPosition().x - 16, guardadoD->getPosition().y - 16, 16, 16);
+  FloatRect spriteRectR(guardadoD->getPosition().x - 16, guardadoD->getPosition().y, 16, 16);
   //cout << guardadoD->getPosition().x << " , " << guardadoD->getPosition().y << " : " << j1->getSprite()->getPosition().x << " , " << j1->getSprite()->getPosition().y << endl;
   if(j1->getSprite()->getGlobalBounds().intersects(spriteRectR)){
-    cout << "Tocando" << endl;
+    //cout << "Tocando" << endl;
     if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
       espacio = true;
     }
     if(espacio == true){
       sgs2 = relojero.getElapsedTime().asSeconds();
-      if(sgs2 >= 0.05){
+      if(sgs2 >= 0.03){
         cambiarSpriteR(comienza, guardadoD);
         comienza++;
         if(comienza == 9){
@@ -528,6 +560,58 @@ void Juego::romperBloqueD(){
           //entrando = true;
           chocadoD = false;
           guardadoD->setPosition(0, 0);
+          espacio = false;
+        }
+        relojero.restart();
+      }
+    }
+  }
+}
+
+void Juego::romperBloqueUp(){
+  FloatRect spriteRectR(guardadoA->getPosition().x, guardadoA->getPosition().y + 16, 16, 16);
+  //cout << guardadoD->getPosition().x << " , " << guardadoD->getPosition().y << " : " << j1->getSprite()->getPosition().x << " , " << j1->getSprite()->getPosition().y << endl;
+  if(j1->getSprite()->getGlobalBounds().intersects(spriteRectR)){
+    //cout << "Tocando" << endl;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+      espacio = true;
+    }
+    if(espacio == true){
+      sgs2 = relojero.getElapsedTime().asSeconds();
+      if(sgs2 >= 0.03){
+        cambiarSpriteUp(comienza, guardadoA);
+        comienza++;
+        if(comienza == 9){
+          comienza = 0;
+          //entrando = true;
+          chocadoA = false;
+          guardadoA->setPosition(0, 0);
+          espacio = false;
+        }
+        relojero.restart();
+      }
+    }
+  }
+}
+
+void Juego::romperBloqueDown(){
+  FloatRect spriteRectR(guardadoDo->getPosition().x, guardadoDo->getPosition().y - 16, 16, 16);
+  //cout << guardadoD->getPosition().x << " , " << guardadoD->getPosition().y << " : " << j1->getSprite()->getPosition().x << " , " << j1->getSprite()->getPosition().y << endl;
+  if(j1->getSprite()->getGlobalBounds().intersects(spriteRectR)){
+    //cout << "Tocando" << endl;
+    if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
+      espacio = true;
+    }
+    if(espacio == true){
+      sgs2 = relojero.getElapsedTime().asSeconds();
+      if(sgs2 >= 0.03){
+        cambiarSpriteDown(comienza, guardadoDo);
+        comienza++;
+        if(comienza == 9){
+          comienza = 0;
+          //entrando = true;
+          chocadoDo = false;
+          guardadoDo->setPosition(0, 0);
           espacio = false;
         }
         relojero.restart();
@@ -593,5 +677,87 @@ void Juego::cambiarSpriteR(int x, Sprite*){
   }
   if(x == 8){
       guardadoD->setTextureRect(sf::IntRect(708 + 128, 48, 16, 16));
+  }
+}
+
+void Juego::cambiarSpriteUp(int x, Sprite*){
+  if(x == 0){
+      guardadoA->setTextureRect(sf::IntRect(708, 48, 16, 16));
+  }
+  if(x == 1){
+      guardadoA->setTextureRect(sf::IntRect(708 + 16, 48, 16, 16));
+  }
+  if(x == 2){
+      guardadoA->setTextureRect(sf::IntRect(708 + 32, 48, 16, 16));
+  }
+  if(x == 3){
+      guardadoA->setTextureRect(sf::IntRect(708 + 48, 48, 16, 16));
+  }
+  if(x == 4){
+      guardadoA->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
+  }
+  if(x == 5){
+      guardadoA->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+  }
+  if(x == 6){
+      guardadoA->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
+  }
+  if(x == 7){
+      guardadoA->setTextureRect(sf::IntRect(708 + 112, 48, 16, 16));
+  }
+  if(x == 8){
+      guardadoA->setTextureRect(sf::IntRect(708 + 128, 48, 16, 16));
+  }
+}
+
+void Juego::cambiarSpriteDown(int x, Sprite*){
+  if(x == 0){
+      guardadoDo->setTextureRect(sf::IntRect(708, 48, 16, 16));
+  }
+  if(x == 1){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 16, 48, 16, 16));
+  }
+  if(x == 2){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 32, 48, 16, 16));
+  }
+  if(x == 3){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 48, 48, 16, 16));
+  }
+  if(x == 4){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
+  }
+  if(x == 5){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+  }
+  if(x == 6){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
+  }
+  if(x == 7){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 112, 48, 16, 16));
+  }
+  if(x == 8){
+      guardadoDo->setTextureRect(sf::IntRect(708 + 128, 48, 16, 16));
+  }
+}
+
+void Juego::AnimacionPengoMuriendo(){
+  sgs3 = reloja.getElapsedTime().asSeconds();
+  if(sgs3 >= 0.1){
+    palante++;
+    this->SpriteMuerto(palante);
+    if(palante == 2){
+        // yasta = true;
+        palante = -1;
+    }
+    reloja.restart();
+  }
+}
+
+void Juego::SpriteMuerto(int x){
+  if(x == 0){
+    j1->getSprite()->setTextureRect(sf::IntRect(0, 32, 16, 16));
+  }
+  else if(x == 1){
+    j1->getSprite()->setTextureRect(sf::IntRect(16, 32, 16, 16));
   }
 }
