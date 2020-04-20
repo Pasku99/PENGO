@@ -18,7 +18,9 @@ Juego::Juego(sf::Vector2u resolucion){
         procesarEventos();
       }
       j1->update();
-      enemigos[0]->update(maposo, esGolpeado);
+      if(enemigos[0] != nullptr){
+        enemigos[0]->update(maposo, esGolpeado);
+      }
       enemigos[1]->update(maposo, esGolpeado2);
       enemigos[2]->update(maposo, esGolpeado3);
       this->choqueBloqueIz();
@@ -47,18 +49,51 @@ Juego::Juego(sf::Vector2u resolucion){
       if(chocadoDo == true){
         romperBloqueDown();
       }
+      if(eliminao == true){
+        if(secondTime == false){
+          nuevoEnemigo.restart();
+          secondTime = true;
+        }
+        else{
+          regenerarSnoobee();
+        }
+      }
+      if(eliminao2 == true){
+        if(secondTime == false){
+          nuevoEnemigo.restart();
+          secondTime = true;
+        }
+        else{
+          regenerarSnoobee2();
+        }
+      }
+      if(eliminao3 == true){
+        if(secondTime == false){
+          nuevoEnemigo.restart();
+          secondTime = true;
+        }
+        else{
+          regenerarSnoobee3();
+        }
+      }
     }
     else{
-      sgsR = reiniciador.getElapsedTime().asSeconds();
-      AnimacionPengoMuriendo();
-      cout << sgsR << endl;
-      if(sgsR >= 5.5){
-        j1->warp(16, 9);
-        j1->getSprite()->setTextureRect(sf::IntRect(96, 1, 16, 15));
-      }
-      if(sgsR >= 6){
+      if(firstTime == false){
         reiniciador.restart();
-        reventao = false;
+        firstTime = true;
+      }
+      else{
+        sgsR = reiniciador.getElapsedTime().asSeconds();
+        AnimacionPengoMuriendo();
+        cout << sgsR << endl;
+        if(sgsR >= 5.5){
+          j1->warp(16, 9);
+          j1->getSprite()->setTextureRect(sf::IntRect(96, 1, 16, 15));
+        }
+        if(sgsR >= 6){
+          reiniciador.restart();
+          reventao = false;
+        }
       }
     }
     this->dibujar(); 
@@ -78,7 +113,9 @@ void Juego::iniciar(){
 void Juego::dibujar(){
   ventana->clear();
   j1->Draw(*ventana);
-  enemigos[0]->Draw(*ventana);
+  if(enemigos[0] != nullptr){
+    enemigos[0]->Draw(*ventana);
+  }
   enemigos[1]->Draw(*ventana);
   enemigos[2]->Draw(*ventana);
   maposo->dibujarMapa(*ventana);
@@ -289,6 +326,42 @@ void Juego::procesarColisionesPengoSnoobee(){
   }
 }
 
+void Juego::regenerarSnoobee(){
+  sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
+  if(sgsEnemy >= 6){
+    cout << "Entra al reloj" << endl;
+    //enemigos[0]->getSprite()->setPosition(200, 100);
+    eliminao = false;
+    esGolpeado = false;
+    secondTime = false;
+    nuevoEnemigo.restart();
+  }
+}
+
+void Juego::regenerarSnoobee2(){
+  sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
+  if(sgsEnemy >= 6){
+    cout << "Entra al reloj" << endl;
+    //enemigos[1]->getSprite()->setPosition(200, 100);
+    eliminao2 = false;
+    esGolpeado2 = false;
+    secondTime = false;
+    nuevoEnemigo.restart();
+  }
+}
+
+void Juego::regenerarSnoobee3(){
+  sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
+  if(sgsEnemy >= 6){
+    cout << "Entra al reloj" << endl;
+    enemigos[2]->getSprite()->setPosition(200, 100);
+    eliminao3 = false;
+    esGolpeado3 = false;
+    secondTime = false;
+    nuevoEnemigo.restart();
+  }
+}
+
 void Juego::choqueBloqueIz(){
   if(maposo->sprites[xxx][yyy] != nullptr){
     if(conti == 25){
@@ -424,9 +497,11 @@ void Juego::choqueBloqueDown(){
 void Juego::choqueBloquePengoIz(){
   if(posAnt != posDesp){
     if(maposo->sprites[xxx][yyy] != nullptr){
-      if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
-        esGolpeado = true;
-        enemigos[0]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
+      if(enemigos[0] != nullptr){
+        if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
+          esGolpeado = true;
+          enemigos[0]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
+        }
       }
       if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
@@ -441,6 +516,18 @@ void Juego::choqueBloquePengoIz(){
       //cout << "Confirmamos choque" << endl;
       chocado = true;
       guardado = maposo->sprites[xxx][yyy];
+      if(esGolpeado == true){
+        enemigos[0]->getSprite()->setPosition(0, 0);
+        eliminao = true;
+      }
+      if(esGolpeado2 == true){
+        enemigos[1]->getSprite()->setPosition(0, 0);
+        eliminao2 = true;
+      } 
+      if(esGolpeado3 == true){
+        enemigos[2]->getSprite()->setPosition(0, 0);
+        eliminao3 = true;
+      }
     }
   }
 }
@@ -448,9 +535,11 @@ void Juego::choqueBloquePengoIz(){
 void Juego::choqueBloquePengoDe(){
   if(posAntDe != posDespDe){
     if(maposo->sprites[xxdd][yydd] != nullptr){
-      if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
-        esGolpeado = true;
-        enemigos[0]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
+      if(enemigos[0] != nullptr){
+        if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
+          esGolpeado = true;
+          enemigos[0]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
+        }
       }
       if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
@@ -463,9 +552,21 @@ void Juego::choqueBloquePengoDe(){
       }
     }
     if(pulsadoD == false){
-        //cout << "Confirmamos choque" << endl;
-        chocadoD = true;
-        guardadoD = maposo->sprites[xxdd][yydd];
+      //cout << "Confirmamos choque" << endl;
+      chocadoD = true;
+      guardadoD = maposo->sprites[xxdd][yydd];
+      if(esGolpeado == true){
+        enemigos[0]->getSprite()->setPosition(0, 0);
+        eliminao = true;
+      }
+      if(esGolpeado2 == true){
+        enemigos[1]->getSprite()->setPosition(0, 0);
+        eliminao2 = true;
+      } 
+      if(esGolpeado3 == true){
+        enemigos[2]->getSprite()->setPosition(0, 0);
+        eliminao3 = true;
+      }
     }
   }
 }
@@ -473,9 +574,11 @@ void Juego::choqueBloquePengoDe(){
 void Juego::choqueBloquePengoUp(){
   if(posAntUp != posDespUp){
     if(maposo->sprites[uxx][uyy] != nullptr){
-      if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
-        esGolpeado = true;
-        enemigos[0]->getSprite()->setPosition(maposo->sprites[uxx][uyy]->getPosition().x, maposo->sprites[uxx][uyy]->getPosition().y - 16);
+      if(enemigos[0] != nullptr){
+        if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
+          esGolpeado = true;
+          enemigos[0]->getSprite()->setPosition(maposo->sprites[uxx][uyy]->getPosition().x, maposo->sprites[uxx][uyy]->getPosition().y - 16);
+        }
       }
       if(maposo->sprites[uxx][uyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
@@ -490,6 +593,18 @@ void Juego::choqueBloquePengoUp(){
       //cout << "Confirmamos choque" << endl;
       chocadoA = true;
       guardadoA = maposo->sprites[uxx][uyy];
+      if(esGolpeado == true){
+        enemigos[0]->getSprite()->setPosition(0, 0);
+        eliminao = true;
+      }
+      if(esGolpeado2 == true){
+        enemigos[1]->getSprite()->setPosition(0, 0);
+        eliminao2 = true;
+      } 
+      if(esGolpeado3 == true){
+        enemigos[2]->getSprite()->setPosition(0, 0);
+        eliminao3 = true;
+      }
     }
   }
 }
@@ -497,9 +612,11 @@ void Juego::choqueBloquePengoUp(){
 void Juego::choqueBloquePengoDown(){
   if(posAntDo != posDespDo){
     if(maposo->sprites[dxx][dyy] != nullptr){
-      if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
-        esGolpeado = true;
-        enemigos[0]->getSprite()->setPosition(maposo->sprites[dxx][dyy]->getPosition().x, maposo->sprites[dxx][dyy]->getPosition().y + 16);
+      if(enemigos[0] != nullptr){
+        if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
+          esGolpeado = true;
+          enemigos[0]->getSprite()->setPosition(maposo->sprites[dxx][dyy]->getPosition().x, maposo->sprites[dxx][dyy]->getPosition().y + 16);
+        }
       }
       if(maposo->sprites[dxx][dyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
@@ -514,6 +631,18 @@ void Juego::choqueBloquePengoDown(){
       //cout << "Confirmamos choque" << endl;
       chocadoDo = true;
       guardadoDo = maposo->sprites[dxx][dyy];
+      if(esGolpeado == true){
+        enemigos[0]->getSprite()->setPosition(0, 0);
+        eliminao = true;
+      }
+      if(esGolpeado2 == true){
+        enemigos[1]->getSprite()->setPosition(0, 0);
+        eliminao2 = true;
+      } 
+      if(esGolpeado3 == true){
+        enemigos[2]->getSprite()->setPosition(0, 0);
+        eliminao3 = true;
+      }
     }
   }
 }
@@ -742,11 +871,10 @@ void Juego::cambiarSpriteDown(int x, Sprite*){
 
 void Juego::AnimacionPengoMuriendo(){
   sgs3 = reloja.getElapsedTime().asSeconds();
-  if(sgs3 >= 0.1){
+  if(sgs3 >= 0.05){
     palante++;
     this->SpriteMuerto(palante);
     if(palante == 2){
-        // yasta = true;
         palante = -1;
     }
     reloja.restart();

@@ -28,7 +28,11 @@ class Juego{
         int comienza = 0;
         float sgs = 0, sgs2 = 0, sgs3 = 0, sgsR = 0;
         Clock relojaso, relojero, reloja, reiniciador;
+        Clock nuevoEnemigo;
+        float sgsEnemy = 0;
+        bool eliminao = false, eliminao2 = false, eliminao3 = false;
         bool dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
+        bool firstTime = false, secondTime = false;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();
@@ -36,6 +40,9 @@ class Juego{
         void procesarEventos();
         void procesarColisiones();
         void procesarColisionesPengoSnoobee();
+        void regenerarSnoobee();
+        void regenerarSnoobee2();
+        void regenerarSnoobee3();
         void colisionBloqueMov(int, int);
         void choqueBloqueIz();
         void choqueBloqueDe();
