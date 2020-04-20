@@ -111,3 +111,7 @@ using namespace sf;
     int Jugador::getVidas(){
         return vidas;
     }
+
+    void Jugador::reiniciarPosicion(){
+        jugador->setPosition(256,144);
+    }

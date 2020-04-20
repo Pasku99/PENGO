@@ -36,6 +36,8 @@ class Juego{
         int contMuertos = 0;
         bool juegoPasado = false, muere1 = false, muere2 = false, muere3 = false;
         bool dibujaisimo = false;
+        bool restarteo = false, godmode = false, pulsarG = false;
+        int contarRestarteo = 0, contadorG = 0;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();

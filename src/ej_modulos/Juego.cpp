@@ -17,7 +17,12 @@ Juego::Juego(sf::Vector2u resolucion){
       while(ventana->pollEvent(*evento)){
         procesarEventos();
       }
-      j1->update();
+      if(restarteo == true){
+        j1->warp(16, 9);
+        restarteo = false;
+      }else{
+        j1->update();
+      }
       enemigos[0]->update(maposo, esGolpeado);
       enemigos[1]->update(maposo, esGolpeado2);
       enemigos[2]->update(maposo, esGolpeado3);
@@ -34,7 +39,23 @@ Juego::Juego(sf::Vector2u resolucion){
       this->choqueBloquePengoDown();
       this->choqueBloquePengoUp();
       //this->choqueBloquePengoDe();
-      procesarColisionesPengoSnoobee();
+      if(godmode == false){
+        j1->restartSprite();
+        procesarColisionesPengoSnoobee();
+      }else{
+        j1->getSprite()->setColor(Color::Yellow);
+        if(pulsarG == true){
+          if(contadorG == 200){
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
+              cout << "Modo normal" << endl;
+              godmode = false;
+              pulsarG = false;
+            }
+            contadorG = 0;
+          }
+          contadorG++;
+        }
+      }
       if(chocado == true){
         romperBloque();
       }
@@ -79,6 +100,7 @@ Juego::Juego(sf::Vector2u resolucion){
         cout << "Pasadisimo" << endl;
         maposo = new Map(matrixMapa2);
         this->inicializarTodo();
+        j1->warp(16, 9);
         dibujaisimo = true;
       }else if(juegoPasado == true && dibujaisimo == true){
         gameover = true;
@@ -96,11 +118,11 @@ Juego::Juego(sf::Vector2u resolucion){
         sgsR = reiniciador.getElapsedTime().asSeconds();
         AnimacionPengoMuriendo();
         cout << sgsR << endl;
-        if(sgsR >= 5.5){
+        if(sgsR >= 2.9){
           j1->warp(16, 9);
           j1->getSprite()->setTextureRect(sf::IntRect(96, 1, 16, 15));
         }
-        if(sgsR >= 6){
+        if(sgsR >= 3){
           reiniciador.restart();
           reventao = false;
         }
@@ -295,6 +317,19 @@ void Juego::procesarEventos(){
               dxx = dx;
               dyy = dy;
               pulsadoDown = true;
+            }
+          }
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::X)){
+            restarteo = true;
+            cout << "Reiniciando nivel" << endl; 
+            maposo = new Map(matrixMapa1);
+            inicializarTodo();
+          }
+          if(pulsarG == false){
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::G)){
+              cout << "Modo DIOS" << endl;
+              godmode = true;
+              pulsarG = true;
             }
           }
           break;

@@ -31,6 +31,7 @@ class Jugador{
         void Draw(RenderWindow&);
         bool perderVida(bool);
         int getVidas();  
+        void reiniciarPosicion();
     private:
         int vidas = 0;  
 };
