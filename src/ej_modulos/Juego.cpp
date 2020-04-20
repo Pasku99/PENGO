@@ -332,6 +332,13 @@ void Juego::procesarEventos(){
               pulsarG = true;
             }
           }
+          if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)){
+            cout << "Next Level" << endl;
+            maposo = new Map(matrixMapa2);
+            this->inicializarTodo();
+            j1->warp(16, 9);
+            dibujaisimo = true;
+          }
           break;
         default:
           break;
@@ -343,23 +350,17 @@ void Juego::comprobarJuegoPasado(){
     if(enemigos[i] != nullptr){
       if(enemigos[i]->getSprite()->getPosition().x == 0){
         if(i == 0 && muere1 == false){
-          cout << enemigos[i]->getSprite()->getPosition().x << endl;
+          //cout << enemigos[i]->getSprite()->getPosition().x << endl;
           cout << "Entra " << i << endl;
-          //contMuertos++;
           muere1 = true;
-          //cout << contMuertos << endl;
         }
         if(i == 1 && muere2 == false){
           cout << "Entra " << i << endl;
-          //contMuertos++;
           muere2 = true;
-          //cout << contMuertos << endl;
         }
         if(i == 2 && muere3 == false){
           cout << "Entra " << i << endl;
-          //contMuertos++;
           muere3 = true;
-          //cout << contMuertos << endl;
         }
       }
     }else{
@@ -487,7 +488,7 @@ void Juego::choqueBloqueIz(){
     }
     maposo->sprites[xxx][yyy]->move(0, 0);
     if(pulsado == true){
-      //if(izda == true){
+      if(matrixMapa1[xxx][yyy] != 2 && matrixMapa1[xxx][yyy] != 3 && matrixMapa1[xxx][yyy] != 4 && matrixMapa1[xxx][yyy] != 5){
         maposo->sprites[xxx][yyy]->move(-kVel, 0);
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
@@ -502,7 +503,7 @@ void Juego::choqueBloqueIz(){
             }
           }
         }
-      //}
+      }
     }
   }
 }
@@ -520,7 +521,7 @@ void Juego::choqueBloqueDe(){
     }
     maposo->sprites[xxdd][yydd]->move(0, 0);
     if(pulsadoD == true){
-      //if(dreta == true){
+      if(matrixMapa1[xxdd][yydd] != 2 && matrixMapa1[xxdd][yydd] != 3 && matrixMapa1[xxdd][yydd] != 4 && matrixMapa1[xxdd][yydd] != 5){
         maposo->sprites[xxdd][yydd]->move(kVel, 0);
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
@@ -535,7 +536,7 @@ void Juego::choqueBloqueDe(){
             }
           }
         }
-      //}
+      }
     }
   }
 }
@@ -553,7 +554,7 @@ void Juego::choqueBloqueUp(){
     }
     maposo->sprites[uxx][uyy]->move(0, 0);
     if(pulsadoA == true){
-      //if(arriba == true){
+      if(matrixMapa1[uxx][uyy] != 2 && matrixMapa1[uxx][uyy] != 3 && matrixMapa1[uxx][uyy] != 4 && matrixMapa1[uxx][uyy] != 5){
         maposo->sprites[uxx][uyy]->move(0, -kVel);
         for(int i = 0; i < 16; i++){
           for(int j = 0; j < 16; j++){
@@ -568,7 +569,7 @@ void Juego::choqueBloqueUp(){
             }
           }
         }
-      //}
+      }
     }
   }
 }
@@ -587,19 +588,20 @@ void Juego::choqueBloqueDown(){
     maposo->sprites[dxx][dyy]->move(0, 0);
     if(pulsadoDown == true){
       //if(abajo == true){
-        maposo->sprites[dxx][dyy]->move(0, kVel);
-        for(int i = 0; i < 16; i++){
-          for(int j = 0; j < 16; j++){
-            if(maposo->sprites[j][i] != nullptr){
-              if(maposo->sprites[j][i] != maposo->sprites[dxx][dyy]){
-                if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[dxx][dyy]->getGlobalBounds())){
-                  //cout << "Entrando al if abajo" << endl;
-                  pulsadoDown = false;
-                  //abajo = false;
+        if(matrixMapa1[dxx][dyy] != 2 && matrixMapa1[dxx][dyy] != 3 && matrixMapa1[dxx][dyy] != 4 && matrixMapa1[dxx][dyy] != 5)
+          maposo->sprites[dxx][dyy]->move(0, kVel);
+          for(int i = 0; i < 16; i++){
+            for(int j = 0; j < 16; j++){
+              if(maposo->sprites[j][i] != nullptr){
+                if(maposo->sprites[j][i] != maposo->sprites[dxx][dyy]){
+                  if(maposo->sprites[j][i]->getGlobalBounds().intersects(maposo->sprites[dxx][dyy]->getGlobalBounds())){
+                    //cout << "Entrando al if abajo" << endl;
+                    pulsadoDown = false;
+                    //abajo = false;
+                  }
                 }
               }
             }
-          }
         }
       //}
     }
