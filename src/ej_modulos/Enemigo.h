@@ -20,6 +20,10 @@ class Enemigo{
         int gridX = 0, gridY = 0;
         int direccion = 0;
         int x = 0, avanza = 0;
+        int frames = 0;
+        int random = 0;
+        bool randomeando = false;
+
         Texture *tex;
         Sprite *enemy;
         int xx = 0, yy = 0;

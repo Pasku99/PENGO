@@ -137,9 +137,9 @@ void Juego::iniciar(){
   j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
   maposo = new Map(matrixMapa1);
-  enemigos[0] = new Enemigo(20, 20);
-  enemigos[1] = new Enemigo(20, 40);
-  enemigos[2] = new Enemigo(42, 30);
+  enemigos[0] = new Enemigo(144, 240);
+  enemigos[1] = new Enemigo(312, 192);
+  enemigos[2] = new Enemigo(224, 208);
 }
 
 void Juego::inicializarTodo(){
@@ -437,7 +437,7 @@ void Juego::regenerarSnoobee(){
   sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
   if(sgsEnemy >= 20){
     cout << "Entra al reloj" << endl;
-    enemigos[0]->getSprite()->setPosition(200, 100);
+    enemigos[0]->getSprite()->setPosition(144, 240);
     eliminao = false;
     muere1 = false;
     esGolpeado = false;

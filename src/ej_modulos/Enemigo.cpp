@@ -11,7 +11,7 @@ using namespace sf;
     Enemigo::Enemigo(int posx, int posy){
         vidas = 3;
         this->warp(posx, posy);
-        velocidad = 0.5f;
+        velocidad = 2;
         tex = new Texture();
         if (!tex->loadFromFile("resources/pengo.png")) {
             std::cerr << "Error cargando la imagen pengo.png";
@@ -30,15 +30,15 @@ using namespace sf;
     }
 
     bool Enemigo::isMoving(){
-        return !(xxx == gridX * 8 && yyy == gridY * 8);
+        return !(xxx == gridX * 1 && yyy == gridY * 1);
     }
 
     void Enemigo::warp(int newGridX, int newGridY){
         gridX = newGridX;
         gridY = newGridY;
 
-        xxx = newGridX * 8;
-        yyy = newGridY * 8;
+        xxx = newGridX * 1;
+        yyy = newGridY * 1;
     }
 
     void Enemigo::move(DirE dir){
@@ -100,20 +100,27 @@ using namespace sf;
         if(esGolpeado == false){  
             enemy->setPosition(xxx, yyy);
 
-            if (xxx < gridX * 8) //moving right
-                xxx = min(xxx + velocidad, float(gridX * 8));
-            else if (xxx > gridX * 8) //moving left
-                xxx = max(xxx - velocidad, float(gridX * 8));
+            if (xxx < gridX * 1) //moving right
+                xxx = min(xxx + velocidad, float(gridX * 1));
+            else if (xxx > gridX * 1) //moving left
+                xxx = max(xxx - velocidad, float(gridX * 1));
 
-            if (yyy < gridY * 8) //moving down
-                yyy = min(yyy + velocidad, float(gridY * 8));
-            else if (yyy > gridY * 8) //moving up
-                yyy = max(yyy - velocidad, float(gridY * 8));
+            if (yyy < gridY * 1) //moving down
+                yyy = min(yyy + velocidad, float(gridY * 1));
+            else if (yyy > gridY * 1) //moving up
+                yyy = max(yyy - velocidad, float(gridY * 1));
       
             procesarColisionesEnemigo(maposo);
-            int random = rand()%4;
+            if(randomeando == false){
+                random = rand()%4;
+                randomeando = true;
+            }
+            if(frames == 8){
+                frames = 0;
+                random = rand()%4;
+            }
             float sgs2 = relojero.getElapsedTime().asSeconds();
-            if(sgs2 >= 0.3){
+            if(sgs2 >= 0.05){
                 //cout << random << endl;
                 if(right == false && down == false && up == false && left == false){
                     left = false;
@@ -121,52 +128,66 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            cout << "Entrando"<< endl;
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            cout << frames << endl;
+                            frames++;
                         }
                     }else if(random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else{
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -176,16 +197,19 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -195,16 +219,19 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -214,28 +241,34 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -245,16 +278,19 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -264,31 +300,21 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
-                        }
-                    }/*else if(random == 2 || random == 3){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
-                            }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
-                    */
                 }
                 if(right == false && down == true && up == false && left == true){
                     left = false;
@@ -296,28 +322,34 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -327,28 +359,34 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -358,28 +396,34 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -389,28 +433,34 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -420,28 +470,34 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -452,52 +508,64 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else{
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -508,52 +576,64 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 1){
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else{
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -564,52 +644,64 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2){
-                        this->move(Izquierda);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteL(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Izquierda);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteL(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else{
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -620,52 +712,64 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 1){
-                        this->move(Abajo);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteD(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Abajo);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteD(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else if(random == 2){
-                        this->move(Derecha);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteR(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Derecha);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteR(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }else{
-                        this->move(Arriba);
-                        sgs = relojaso.getElapsedTime().asSeconds();
-                        if(sgs >= 0.2){
-                            avanza++;
-                            this->cambiarSpriteU(avanza);
-                            if(avanza == 2){
-                                // yasta = true;
-                                avanza = -1;
+                        if(frames < 8){
+                            this->move(Arriba);
+                            sgs = relojaso.getElapsedTime().asSeconds();
+                            if(sgs >= 0.1){
+                                avanza++;
+                                this->cambiarSpriteU(avanza);
+                                if(avanza == 2){
+                                    // yasta = true;
+                                    avanza = -1;
+                                }
+                                relojaso.restart();
                             }
-                            relojaso.restart();
+                            frames++;
                         }
                     }
                 }
@@ -678,10 +782,10 @@ using namespace sf;
         for(int i = 0; i < 16; i++){
             for(int j = 0; j < 16; j++){
                 if(maposo->sprites[j][i] != nullptr){
-                    FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x - 8, maposo->sprites[j][i]->getPosition().y, 16, 16);
-                    FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 8, 16, 16);
-                    FloatRect spriteRectL(maposo->sprites[j][i]->getPosition().x + 8, maposo->sprites[j][i]->getPosition().y, 16, 16);
-                    FloatRect spriteRectU(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y + 8, 16, 16);
+                    FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x - 1, maposo->sprites[j][i]->getPosition().y, 16, 16);
+                    FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 1, 16, 16);
+                    FloatRect spriteRectL(maposo->sprites[j][i]->getPosition().x + 1, maposo->sprites[j][i]->getPosition().y, 16, 16);
+                    FloatRect spriteRectU(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y + 1, 16, 16);
                     FloatRect jugadorRect(enemy->getPosition().x, enemy->getPosition().y, 16, 16);
                     // colision a la derecha
                     if(jugadorRect.intersects(spriteRectR)){
