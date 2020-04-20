@@ -18,9 +18,7 @@ Juego::Juego(sf::Vector2u resolucion){
         procesarEventos();
       }
       j1->update();
-      if(enemigos[0] != nullptr){
-        enemigos[0]->update(maposo, esGolpeado);
-      }
+      enemigos[0]->update(maposo, esGolpeado);
       enemigos[1]->update(maposo, esGolpeado2);
       enemigos[2]->update(maposo, esGolpeado3);
       this->choqueBloqueIz();
@@ -76,6 +74,18 @@ Juego::Juego(sf::Vector2u resolucion){
           regenerarSnoobee3();
         }
       }
+      this->comprobarJuegoPasado();
+      if(juegoPasado == true && dibujaisimo == false){
+        cout << "Pasadisimo" << endl;
+        maposo = new Map(matrixMapa2);
+        this->inicializarTodo();
+        dibujaisimo = true;
+      }else if(juegoPasado == true && dibujaisimo == true){
+        gameover = true;
+      }
+      if(muere1 == true && muere2 == true && muere3 == true){
+        juegoPasado = true;
+      }
     }
     else{
       if(firstTime == false){
@@ -104,18 +114,41 @@ void Juego::iniciar(){
   j1 = new Jugador();
   j1->getSprite()->setPosition(j1->getCoors().x, j1->getCoors().y);
   evento = new sf::Event();
-  maposo = new Map();
+  maposo = new Map(matrixMapa1);
   enemigos[0] = new Enemigo(20, 20);
   enemigos[1] = new Enemigo(20, 40);
   enemigos[2] = new Enemigo(42, 30);
 }
 
+void Juego::inicializarTodo(){
+  posx = 0, posy = 0;
+  right = false, left = false, up = false, down = false;
+  pulsado = false, pulsadoD = false, pulsadoA = false, pulsadoDown = false;
+  esGolpeado = false, esGolpeado2 = false, esGolpeado3 = false;
+  entrando = false;
+  x = 0, y = 0, z = 0, j = 0;
+  izda = false, arriba = false, dreta = false, abajo = false;
+  reventao = false, toparao = false;
+  xx = 0, yy = 0, xxd = 0, yyd = 0, xxdd = 0, yydd = 0, xxx = 0, yyy = 0;
+  ux = 0, uy = 0, uxx = 0, uyy = 0, dx = 0, dy = 0, dxx = 0, dyy = 0;
+  avanza = 0, palante = 0;
+  posAnt = 0, posDesp = 0, posAntDe = 0, posDespDe = 0, posAntUp = 0, posDespUp = 0, posAntDo = 0, posDespDo = 0;
+  contIt = 0, conti = 0, contiD = 0, contiA = 0, contiAb = 0;
+  nuevax = 0, nuevay = 0;
+  comienza = 0;
+  sgs = 0, sgs2 = 0, sgs3 = 0, sgsR = 0;
+  sgsEnemy = 0;
+  eliminao = false, eliminao2 = false, eliminao3 = false;
+  dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
+  firstTime = false, secondTime = false;
+  contMuertos = 0;
+  juegoPasado = false, muere1 = false, muere2 = false, muere3 = false;
+}
+
 void Juego::dibujar(){
   ventana->clear();
   j1->Draw(*ventana);
-  if(enemigos[0] != nullptr){
-    enemigos[0]->Draw(*ventana);
-  }
+  enemigos[0]->Draw(*ventana);
   enemigos[1]->Draw(*ventana);
   enemigos[2]->Draw(*ventana);
   maposo->dibujarMapa(*ventana);
@@ -270,6 +303,44 @@ void Juego::procesarEventos(){
     }
 }
 
+void Juego::comprobarJuegoPasado(){
+  for(int i = 0; i < 3 && juegoPasado == false; i++){
+    if(enemigos[i] != nullptr){
+      if(enemigos[i]->getSprite()->getPosition().x == 0){
+        if(i == 0 && muere1 == false){
+          cout << enemigos[i]->getSprite()->getPosition().x << endl;
+          cout << "Entra " << i << endl;
+          //contMuertos++;
+          muere1 = true;
+          //cout << contMuertos << endl;
+        }
+        if(i == 1 && muere2 == false){
+          cout << "Entra " << i << endl;
+          //contMuertos++;
+          muere2 = true;
+          //cout << contMuertos << endl;
+        }
+        if(i == 2 && muere3 == false){
+          cout << "Entra " << i << endl;
+          //contMuertos++;
+          muere3 = true;
+          //cout << contMuertos << endl;
+        }
+      }
+    }else{
+      if(i == 0){
+        muere1 = false;
+      }
+      else if(i == 1){
+        muere2 = false;
+      }
+      else if(i == 2){
+        muere3 = false;
+      }
+    }
+  }
+}
+
 void Juego::procesarColisiones(){
   for(int i = 0; i < 16; i++){
     for(int j = 0; j < 16; j++){
@@ -328,36 +399,42 @@ void Juego::procesarColisionesPengoSnoobee(){
 
 void Juego::regenerarSnoobee(){
   sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
-  if(sgsEnemy >= 6){
+  if(sgsEnemy >= 20){
     cout << "Entra al reloj" << endl;
-    //enemigos[0]->getSprite()->setPosition(200, 100);
+    enemigos[0]->getSprite()->setPosition(200, 100);
     eliminao = false;
+    muere1 = false;
     esGolpeado = false;
     secondTime = false;
+    //contMuertos--;
     nuevoEnemigo.restart();
   }
 }
 
 void Juego::regenerarSnoobee2(){
   sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
-  if(sgsEnemy >= 6){
+  if(sgsEnemy >= 20){
     cout << "Entra al reloj" << endl;
-    //enemigos[1]->getSprite()->setPosition(200, 100);
+    enemigos[1]->getSprite()->setPosition(200, 100);
     eliminao2 = false;
+    muere2 = false;
     esGolpeado2 = false;
     secondTime = false;
+    //contMuertos--;
     nuevoEnemigo.restart();
   }
 }
 
 void Juego::regenerarSnoobee3(){
   sgsEnemy = nuevoEnemigo.getElapsedTime().asSeconds();
-  if(sgsEnemy >= 6){
+  if(sgsEnemy >= 20){
     cout << "Entra al reloj" << endl;
     enemigos[2]->getSprite()->setPosition(200, 100);
     eliminao3 = false;
+    muere3 = false;
     esGolpeado3 = false;
     secondTime = false;
+    //contMuertos--;
     nuevoEnemigo.restart();
   }
 }

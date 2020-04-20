@@ -677,7 +677,7 @@ using namespace sf;
     void Enemigo::procesarColisionesEnemigo(Map *maposo){
         for(int i = 0; i < 16; i++){
             for(int j = 0; j < 16; j++){
-                if(maposo->matrixMapa[j][i] != 0){
+                if(maposo->sprites[j][i] != nullptr){
                     FloatRect spriteRectR(maposo->sprites[j][i]->getPosition().x - 8, maposo->sprites[j][i]->getPosition().y, 16, 16);
                     FloatRect spriteRectD(maposo->sprites[j][i]->getPosition().x, maposo->sprites[j][i]->getPosition().y - 8, 16, 16);
                     FloatRect spriteRectL(maposo->sprites[j][i]->getPosition().x + 8, maposo->sprites[j][i]->getPosition().y, 16, 16);

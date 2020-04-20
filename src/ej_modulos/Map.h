@@ -37,10 +37,11 @@ class Map{
             {3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 5},
             {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}
         };
+        int matriz[16][16];
         Texture *tex;
         Texture *tex2;
         Sprite* sprites[16][16];
-        Map();  
+        Map(int matriz[16][16]);  
         ~Map();
         bool isMoving();
         /*

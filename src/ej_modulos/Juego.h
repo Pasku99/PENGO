@@ -33,13 +33,18 @@ class Juego{
         bool eliminao = false, eliminao2 = false, eliminao3 = false;
         bool dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
         bool firstTime = false, secondTime = false;
+        int contMuertos = 0;
+        bool juegoPasado = false, muere1 = false, muere2 = false, muere3 = false;
+        bool dibujaisimo = false;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();
+        void inicializarTodo();
         void dibujar();
         void procesarEventos();
         void procesarColisiones();
         void procesarColisionesPengoSnoobee();
+        void comprobarJuegoPasado();
         void regenerarSnoobee();
         void regenerarSnoobee2();
         void regenerarSnoobee3();
@@ -68,12 +73,50 @@ class Juego{
         Jugador *j1;
         Event *evento;
         Map *maposo;
+        Map *maposo2;
         Enemigo *enemigos[3];
         Sprite *guardado;
         Sprite *guardadoD;
         Sprite *guardadoA;
         Sprite *guardadoDo;
         Texture *tex = new Texture();
+        int matrixMapa1[16][16]={
+            {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0},
+            {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 5},
+            {3, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 6, 0, 0, 5},
+            {3, 0, 1, 0, 1, 6, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1, 0, 0, 5},
+            {3, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 1, 1, 0, 1, 5},
+            {3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 5},
+            {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}
+        };
+
+        int matrixMapa2[16][16]={
+            {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0},
+            {3, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 5},
+            {3, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 0, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 6, 0, 0, 5},
+            {3, 0, 1, 0, 1, 6, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 0, 1, 0, 1, 0, 1, 6, 0, 1, 0, 0, 5},
+            {3, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 5},
+            {3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 5},
+            {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}
+        };
 };
 
 #endif
