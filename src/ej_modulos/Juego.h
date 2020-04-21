@@ -25,10 +25,10 @@ class Juego{
         int posAnt = 0, posDesp = 0, posAntDe = 0, posDespDe = 0, posAntUp = 0, posDespUp = 0, posAntDo = 0, posDespDo = 0;
         int contIt = 0, conti = 0, contiD = 0, contiA = 0, contiAb = 0;
         int nuevax = 0, nuevay = 0;
-        int comienza = 0;
-        float sgs = 0, sgs2 = 0, sgs3 = 0, sgsR = 0;
+        int comienza = 0, animaAvanza = 0, empujar = 0;
+        float sgs = 0, sgs2 = 0, sgs3 = 0, sgsR = 0, sgsA = 0, animaEmpuja = 0;
         Clock relojaso, relojero, reloja, reiniciador;
-        Clock nuevoEnemigo;
+        Clock nuevoEnemigo, relojAnimator, relojEmpujador;
         float sgsEnemy = 0;
         bool eliminao = false, eliminao2 = false, eliminao3 = false;
         bool dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
@@ -37,7 +37,9 @@ class Juego{
         bool juegoPasado = false, muere1 = false, muere2 = false, muere3 = false;
         bool dibujaisimo = false;
         bool restarteo = false, godmode = false, pulsarG = false;
+        bool empujeR = false, empujeL = false, empujeD = false, empujeU = false;
         int contarRestarteo = 0, contadorG = 0;
+        int cargaNivel = 0;
         Juego(Vector2u tam_pantalla);
         ~Juego();
         void iniciar();
@@ -51,10 +53,16 @@ class Juego{
         void regenerarSnoobee2();
         void regenerarSnoobee3();
         void colisionBloqueMov(int, int);
+        void animacionEmpujarIzda();
+        void cambiarEmpujeIzda(int);
         void choqueBloqueIz();
+        void cambiaAnimacionIz(int);
         void choqueBloqueDe();
+        void animacionDe();
         void choqueBloqueUp();
+        void animacionUp();
         void choqueBloqueDown();
+        void animacionDown();
         void choqueBloquePengoIz();
         void choqueBloquePengoDe();
         void choqueBloquePengoUp();
@@ -86,13 +94,13 @@ class Juego{
             {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0},
             {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
             {3, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 5},
-            {3, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 0, 0, 0, 5},
+            {3, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 5},
-            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 6, 0, 0, 5},
-            {3, 0, 1, 0, 1, 6, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
-            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
-            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
-            {3, 0, 1, 0, 1, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 6, 1, 0, 5},
+            {3, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1, 0, 0, 5},
             {3, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 5},
             {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 5},
@@ -111,10 +119,10 @@ class Juego{
             {3, 0, 1, 0, 1, 6, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
-            {3, 0, 1, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
-            {3, 0, 1, 0, 0, 1, 0, 1, 0, 1, 6, 0, 1, 0, 0, 5},
-            {3, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
-            {3, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 0, 1, 0, 1, 0, 1, 0, 1, 6, 0, 1, 0, 0, 5},
+            {3, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
+            {3, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 5},
             {3, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 5},
             {0, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 4, 0}

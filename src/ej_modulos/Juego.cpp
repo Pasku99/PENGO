@@ -4,7 +4,7 @@
 using namespace std;
 using namespace sf;
 
-#define kVel 0.04
+#define kVel 0.1
 
 Juego::Juego(sf::Vector2u resolucion){
   //Creamos una ventana
@@ -18,7 +18,12 @@ Juego::Juego(sf::Vector2u resolucion){
         procesarEventos();
       }
       if(restarteo == true){
+        j1->setVidas(3);
+        cout << "Num vidas: " << j1->getVidas() << endl;
         j1->warp(16, 9);
+        enemigos[0]->warp(144, 240);
+        enemigos[1]->warp(312, 192);
+        enemigos[2]->warp(224, 208);
         restarteo = false;
       }else{
         j1->update();
@@ -38,6 +43,9 @@ Juego::Juego(sf::Vector2u resolucion){
       this->choqueBloquePengoDe();
       this->choqueBloquePengoDown();
       this->choqueBloquePengoUp();
+      if(empujeL == true){
+        animacionEmpujarIzda();
+      }
       //this->choqueBloquePengoDe();
       if(godmode == false){
         j1->restartSprite();
@@ -99,6 +107,7 @@ Juego::Juego(sf::Vector2u resolucion){
       if(juegoPasado == true && dibujaisimo == false){
         cout << "Pasadisimo" << endl;
         maposo = new Map(matrixMapa2);
+        cargaNivel = 1;
         this->inicializarTodo();
         j1->warp(16, 9);
         dibujaisimo = true;
@@ -118,11 +127,11 @@ Juego::Juego(sf::Vector2u resolucion){
         sgsR = reiniciador.getElapsedTime().asSeconds();
         AnimacionPengoMuriendo();
         cout << sgsR << endl;
-        if(sgsR >= 2.9){
+        if(sgsR >= 1.8){
           j1->warp(16, 9);
           j1->getSprite()->setTextureRect(sf::IntRect(96, 1, 16, 15));
         }
-        if(sgsR >= 3){
+        if(sgsR >= 2){
           reiniciador.restart();
           reventao = false;
         }
@@ -299,21 +308,25 @@ void Juego::procesarEventos(){
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
             procesarColisiones();
             if(left == true && izda == true){
+              empujeL = true;
               xxx = xx;
               yyy = yy;
               pulsado = true;
             }
             if(right == true && dreta == true){
+              empujeR = true;
               xxdd = xxd;
               yydd = yyd;
               pulsadoD = true;
             }
             if(up == true && arriba == true){
+              empujeU = true;
               uxx = ux;
               uyy = uy;
               pulsadoA = true;
             }
             if(down == true && abajo == true){
+              empujeD = true;
               dxx = dx;
               dyy = dy;
               pulsadoDown = true;
@@ -322,7 +335,13 @@ void Juego::procesarEventos(){
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::X)){
             restarteo = true;
             cout << "Reiniciando nivel" << endl; 
-            maposo = new Map(matrixMapa1);
+            if(cargaNivel == 0){
+              cout << "Carga mapa 1" << endl;
+              maposo = new Map(matrixMapa1);
+            }else{
+              cout << "Carga mapa 2" << endl;
+              maposo = new Map(matrixMapa2);
+            }
             inicializarTodo();
           }
           if(pulsarG == false){
@@ -332,13 +351,17 @@ void Juego::procesarEventos(){
               pulsarG = true;
             }
           }
-          if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)){
-            cout << "Next Level" << endl;
-            maposo = new Map(matrixMapa2);
-            this->inicializarTodo();
-            j1->warp(16, 9);
-            dibujaisimo = true;
+          if(cargaNivel == 0){
+            if(sf::Keyboard::isKeyPressed(sf::Keyboard::N)){
+              cargaNivel = 1;
+              cout << "Next Level" << endl;
+              maposo = new Map(matrixMapa2);
+              this->inicializarTodo();
+              j1->warp(16, 9);
+              dibujaisimo = true;
+            }
           }
+        
           break;
         default:
           break;
@@ -475,6 +498,31 @@ void Juego::regenerarSnoobee3(){
   }
 }
 
+void Juego::animacionEmpujarIzda(){
+  animaEmpuja = relojEmpujador.getElapsedTime().asSeconds();
+  if(animaEmpuja >= 0.15){
+    cambiarEmpujeIzda(empujar);
+    empujar++;
+    if(empujar == 3){
+      empujar = 0;
+      empujeL = false;
+    }
+    relojEmpujador.restart();
+  }
+}
+
+void Juego::cambiarEmpujeIzda(int x){
+  if(x == 0){
+    j1->getSprite()->setTextureRect(sf::IntRect(32, 16, 16, 16));
+  }
+  if(x == 1){
+    j1->getSprite()->setTextureRect(sf::IntRect(48, 16, 16, 16));
+  }
+  if(x == 2){
+    j1->getSprite()->setTextureRect(sf::IntRect(48, 1, 16, 15));
+  }
+}
+
 void Juego::choqueBloqueIz(){
   if(maposo->sprites[xxx][yyy] != nullptr){
     if(conti == 25){
@@ -608,37 +656,87 @@ void Juego::choqueBloqueDown(){
   }
 }
 
+void Juego::cambiaAnimacionIz(int x){
+  sgsA = relojAnimator.getElapsedTime().asSeconds();
+  if(sgsA >= 0.2){
+      cout << "Entra en 2" << endl;
+    if(esGolpeado3 == true){
+        if(x == 0){
+          //cout << "Cambia textura" << endl;
+          enemigos[2]->getSprite()->setTextureRect(sf::IntRect(160, 192, 16, 16));
+          animaAvanza++;
+        }
+        if(x == 1){
+          //cout << "Cambia textura 2" << endl;
+          enemigos[2]->getSprite()->setTextureRect(sf::IntRect(176, 192, 16, 16));
+        }
+    }
+    if(esGolpeado2 == true){
+      cout << "Entra en 1" << endl;
+      if(x == 0){
+        //cout << "Cambia textura" << endl;
+        enemigos[1]->getSprite()->setTextureRect(sf::IntRect(160, 192, 16, 16));
+        animaAvanza++;
+      }
+      if(x == 1){
+        //cout << "Cambia textura 2" << endl;
+        enemigos[1]->getSprite()->setTextureRect(sf::IntRect(176, 192, 16, 16));
+      }
+    }
+    if(esGolpeado == true){
+      cout << "Entra en 0" << endl;
+      if(x == 0){
+        enemigos[0]->getSprite()->setTextureRect(sf::IntRect(160, 192, 16, 16));
+        animaAvanza++;
+      }
+      if(x == 1){
+        enemigos[0]->getSprite()->setTextureRect(sf::IntRect(176, 192, 16, 16));
+      }
+    }
+    relojAnimator.restart();
+  }
+}
+
 void Juego::choqueBloquePengoIz(){
   if(posAnt != posDesp){
     if(maposo->sprites[xxx][yyy] != nullptr){
       if(enemigos[0] != nullptr){
         if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
+          //cout << "Golpea a este" << endl;
           esGolpeado = true;
-          enemigos[0]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
+          enemigos[0]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x- 16, maposo->sprites[xxx][yyy]->getPosition().y);
         }
       }
       if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
+        //cout << "Golpea a este" << endl;
         esGolpeado2 = true;
-        enemigos[1]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
+        enemigos[1]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x- 16, maposo->sprites[xxx][yyy]->getPosition().y);
       }
       if(maposo->sprites[xxx][yyy]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
+        //cout << "Golpea a este" << endl;
         esGolpeado3 = true;
-        enemigos[2]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x-16, maposo->sprites[xxx][yyy]->getPosition().y);
+        enemigos[2]->getSprite()->setPosition(maposo->sprites[xxx][yyy]->getPosition().x- 16, maposo->sprites[xxx][yyy]->getPosition().y);
+        //animaAvanza++;
       }
+      this->cambiaAnimacionIz(animaAvanza);
+      cout << animaAvanza << endl;
     }
     if(pulsado == false){
       //cout << "Confirmamos choque" << endl;
       chocado = true;
       guardado = maposo->sprites[xxx][yyy];
       if(esGolpeado == true){
+        animaAvanza = 0;
         enemigos[0]->getSprite()->setPosition(0, 0);
         eliminao = true;
       }
       if(esGolpeado2 == true){
+        animaAvanza = 0;
         enemigos[1]->getSprite()->setPosition(0, 0);
         eliminao2 = true;
       } 
       if(esGolpeado3 == true){
+        animaAvanza = 0;
         enemigos[2]->getSprite()->setPosition(0, 0);
         eliminao3 = true;
       }
@@ -652,17 +750,17 @@ void Juego::choqueBloquePengoDe(){
       if(enemigos[0] != nullptr){
         if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[0]->getSprite()->getGlobalBounds())){
           esGolpeado = true;
-          enemigos[0]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
+          enemigos[0]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+ 16, maposo->sprites[xxdd][yydd]->getPosition().y);
         }
       }
       if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[1]->getSprite()->getGlobalBounds())){
         esGolpeado2 = true;
-        enemigos[1]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
+        enemigos[1]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+ 16, maposo->sprites[xxdd][yydd]->getPosition().y);
       }
       if(maposo->sprites[xxdd][yydd]->getGlobalBounds().intersects(enemigos[2]->getSprite()->getGlobalBounds())){
         //cout << "Esta intersectando" << endl;
         esGolpeado3 = true;
-        enemigos[2]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+16, maposo->sprites[xxdd][yydd]->getPosition().y);
+        enemigos[2]->getSprite()->setPosition(maposo->sprites[xxdd][yydd]->getPosition().x+ 16, maposo->sprites[xxdd][yydd]->getPosition().y);
       }
     }
     if(pulsadoD == false){
@@ -880,7 +978,7 @@ void Juego::cambiarSprite(int x, Sprite*){
       guardado->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
   }
   if(x == 5){
-      guardado->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+      guardado->setTextureRect(sf::IntRect(708 + 160, 48, 16, 16));
   }
   if(x == 6){
       guardado->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
@@ -910,7 +1008,7 @@ void Juego::cambiarSpriteR(int x, Sprite*){
       guardadoD->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
   }
   if(x == 5){
-      guardadoD->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+      guardadoD->setTextureRect(sf::IntRect(708 + 160, 48, 16, 16));
   }
   if(x == 6){
       guardadoD->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
@@ -940,7 +1038,7 @@ void Juego::cambiarSpriteUp(int x, Sprite*){
       guardadoA->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
   }
   if(x == 5){
-      guardadoA->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+      guardadoA->setTextureRect(sf::IntRect(708 + 160, 48, 16, 16));
   }
   if(x == 6){
       guardadoA->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));
@@ -970,7 +1068,7 @@ void Juego::cambiarSpriteDown(int x, Sprite*){
       guardadoDo->setTextureRect(sf::IntRect(708 + 64, 48, 16, 16));
   }
   if(x == 5){
-      guardadoDo->setTextureRect(sf::IntRect(708 + 80, 48, 16, 16));
+      guardadoDo->setTextureRect(sf::IntRect(708 + 160, 48, 16, 16));
   }
   if(x == 6){
       guardadoDo->setTextureRect(sf::IntRect(708 + 96, 48, 16, 16));

@@ -115,7 +115,7 @@ using namespace sf;
                 random = rand()%4;
                 randomeando = true;
             }
-            if(frames == 8){
+            if(frames == 16){
                 frames = 0;
                 random = rand()%4;
             }
@@ -128,8 +128,8 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        if(frames < 8){
-                            cout << "Entrando"<< endl;
+                        if(frames < 16){
+                            //cout << "Entrando"<< endl;
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -141,11 +141,11 @@ using namespace sf;
                                 }
                                 relojaso.restart();
                             }
-                            cout << frames << endl;
+                            //cout << frames << endl;
                             frames++;
                         }
                     }else if(random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -160,7 +160,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -175,7 +175,7 @@ using namespace sf;
                             frames++;
                         }
                     }else{
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -197,7 +197,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -219,7 +219,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -241,7 +241,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -256,7 +256,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -278,7 +278,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -300,7 +300,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1 || random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -322,7 +322,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -337,7 +337,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -359,7 +359,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -374,7 +374,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -396,7 +396,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -411,7 +411,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -433,7 +433,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -448,7 +448,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -470,7 +470,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0 || random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -485,7 +485,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2 || random == 3){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -508,7 +508,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -523,7 +523,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -538,7 +538,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -553,7 +553,7 @@ using namespace sf;
                             frames++;
                         }
                     }else{
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -576,7 +576,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -591,7 +591,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -606,7 +606,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -621,7 +621,7 @@ using namespace sf;
                             frames++;
                         }
                     }else{
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -644,7 +644,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -659,7 +659,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -674,7 +674,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Izquierda);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -689,7 +689,7 @@ using namespace sf;
                             frames++;
                         }
                     }else{
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -712,7 +712,7 @@ using namespace sf;
                     up = false;
                     down = false;
                     if(random == 0){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -727,7 +727,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 1){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Abajo);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -742,7 +742,7 @@ using namespace sf;
                             frames++;
                         }
                     }else if(random == 2){
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Derecha);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){
@@ -757,7 +757,7 @@ using namespace sf;
                             frames++;
                         }
                     }else{
-                        if(frames < 8){
+                        if(frames < 16){
                             this->move(Arriba);
                             sgs = relojaso.getElapsedTime().asSeconds();
                             if(sgs >= 0.1){

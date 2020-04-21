@@ -32,6 +32,7 @@ class Jugador{
         bool perderVida(bool);
         int getVidas();  
         void reiniciarPosicion();
+        void setVidas(int);
     private:
         int vidas = 0;  
 };
