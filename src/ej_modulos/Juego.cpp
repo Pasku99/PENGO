@@ -1,5 +1,6 @@
 #include "Juego.h"
 #include <SFML/Graphics.hpp>
+#include <sstream>
 
 using namespace std;
 using namespace sf;
@@ -27,6 +28,7 @@ Juego::Juego(sf::Vector2u resolucion){
         enemigos[0]->warp(176, 160);
         enemigos[1]->warp(312, 192);
         enemigos[2]->warp(224, 208);
+        puntuacion = 0;
         restarteo = false;
       }else{
         j1->update();
@@ -89,6 +91,7 @@ Juego::Juego(sf::Vector2u resolucion){
       }
       if(eliminao == true){
         if(secondTime == false){
+          puntuacion += 300;
           nuevoEnemigo.restart();
           secondTime = true;
         }
@@ -97,18 +100,20 @@ Juego::Juego(sf::Vector2u resolucion){
         }
       }
       if(eliminao2 == true){
-        if(secondTime == false){
+        if(secondTime2 == false){
+          puntuacion += 300;
           nuevoEnemigo.restart();
-          secondTime = true;
+          secondTime2 = true;
         }
         else{
           regenerarSnoobee2();
         }
       }
       if(eliminao3 == true){
-        if(secondTime == false){
+        if(secondTime3 == false){
+          puntuacion += 300;
           nuevoEnemigo.restart();
-          secondTime = true;
+          secondTime3 = true;
         }
         else{
           regenerarSnoobee3();
@@ -134,13 +139,12 @@ Juego::Juego(sf::Vector2u resolucion){
           creareloj = true;
         }
         else{
-          cout << "Hace esta mierda" << endl;
           float segundero = relojpasando.getElapsedTime().asSeconds();
-          cout << "Pasadisimo" << endl;
+          //cout << "Pasadisimo" << endl;
           //this->inicializarTodo();
           this->EscribirTexto();
           if(segundero >= 3){
-            cout << "Acaba el juego" << endl;
+            //cout << "Acaba el juego" << endl;
             gameover = true;
           }
         }
@@ -175,7 +179,7 @@ Juego::Juego(sf::Vector2u resolucion){
 }
 
 void Juego::EscribirTexto(){
-  sf::Font font;
+  Font font;
   if (!font.loadFromFile("resources/fonts/PTS55F.ttf"))
   {
     std::cerr << "Error cargando la fuente PTS55F.ttf";
@@ -187,7 +191,7 @@ void Juego::EscribirTexto(){
   text.setColor(sf::Color::Red);
   text.setStyle(sf::Text::Bold);
 
-  text.setPosition(200, 200);
+  text.setPosition(150, 200);
   
   ventana->draw(text);
   ventana->display();
@@ -201,6 +205,7 @@ void Juego::iniciar(){
   enemigos[0] = new Enemigo(176, 160);
   enemigos[1] = new Enemigo(312, 192);
   enemigos[2] = new Enemigo(224, 208);
+  hudio = new hud();
 }
 
 void Juego::inicializarTodo(){
@@ -223,7 +228,7 @@ void Juego::inicializarTodo(){
   sgsEnemy = 0;
   eliminao = false, eliminao2 = false, eliminao3 = false;
   dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
-  firstTime = false, secondTime = false;
+  firstTime = false, secondTime = false, secondTime2 = false, secondTime3 = false;
   contMuertos = 0;
   juegoPasado = false, muere1 = false, muere2 = false, muere3 = false;
 }
@@ -235,7 +240,50 @@ void Juego::dibujar(){
   enemigos[1]->Draw(*ventana);
   enemigos[2]->Draw(*ventana);
   maposo->dibujarMapa(*ventana);
+  this->controlarHUD();
   ventana->display();
+}
+
+void Juego::controlarHUD(){
+  if(j1->getVidas() == 3){
+    hudio->Draw1(*ventana);
+    hudio->Draw2(*ventana);
+    hudio->Draw3(*ventana);
+  }
+  if(j1->getVidas() == 2){
+    hudio->Draw1(*ventana);
+    hudio->Draw2(*ventana);
+  }
+  if(j1->getVidas() == 1){
+    hudio->Draw1(*ventana);
+  }
+  hudio->DrawTitulo(*ventana);
+  this->tablaPuntuaciones();
+}
+
+void Juego::tablaPuntuaciones(){
+  Font font;
+  if (!font.loadFromFile("resources/fonts/Pixel-UniCode.ttf"))
+  {
+    std::cerr << "Error cargando la fuente Pixel-UniCode.ttf";
+  }
+  Text text;
+  text.setFont(font);
+  ostringstream ss;
+  ss << puntuacion;
+  string s(ss.str());
+  text.setString(s);
+  text.setCharacterSize(40);
+  text.setColor(Color::White);
+  text.setStyle(Text::Bold);
+  text.setScale(0.5, 0.5);
+
+  text.setPosition(332, 368);
+  ventana->draw(text);
+}
+
+void Juego::DrawPuntuaciones(RenderWindow &window){
+  window.draw(*puntuar);
 }
 
 void Juego::animacionAndarDerecha(){
@@ -303,83 +351,89 @@ void Juego::procesarEventos(){
           }
           // si se pulsa la tecla izquierda
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Left)){
-            dreta = false;
-            izda = true;
-            arriba = false;
-            abajo = false;
-            procesarColisiones();
-            if(left == true){
-              j1->getSprite()->setTextureRect(sf::IntRect(32, 1, 16, 15));
-              j1->move(Stay);
-              left = false;
-            }
-            else{
-              if(y == 0){
+            if(espacio == false){
+              dreta = false;
+              izda = true;
+              arriba = false;
+              abajo = false;
+              procesarColisiones();
+              if(left == true){
                 j1->getSprite()->setTextureRect(sf::IntRect(32, 1, 16, 15));
-                j1->move(Left);
+                j1->move(Stay);
+                left = false;
               }
               else{
-                j1->getSprite()->setTextureRect(sf::IntRect(48, 0, 15, 16));
-                j1->move(Left);
+                if(y == 0){
+                  j1->getSprite()->setTextureRect(sf::IntRect(32, 1, 16, 15));
+                  j1->move(Left);
+                }
+                else{
+                  j1->getSprite()->setTextureRect(sf::IntRect(48, 0, 15, 16));
+                  j1->move(Left);
+                }
               }
-            }
-            y++;
-            if(y == 2){
-              y = 0;
+              y++;
+              if(y == 2){
+                y = 0;
+              }
             }
           }
           // si se pulsa la tecla arriba
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Up)){
-            arriba = true;
-            dreta = false;
-            izda = false;
-            abajo = false;
-            procesarColisiones();
-            if(up == true){
-              j1->getSprite()->setTextureRect(sf::IntRect(64, 0, 16, 16));
-              j1->move(Stay);
-              up = false;
-            }
-            else{
-              if(z == 0){
+            if(espacio == false){
+              arriba = true;
+              dreta = false;
+              izda = false;
+              abajo = false;
+              procesarColisiones();
+              if(up == true){
                 j1->getSprite()->setTextureRect(sf::IntRect(64, 0, 16, 16));
-                j1->move(Up);
+                j1->move(Stay);
+                up = false;
               }
               else{
-                j1->getSprite()->setTextureRect(sf::IntRect(80, 0, 16, 16));
-                j1->move(Up);
+                if(z == 0){
+                  j1->getSprite()->setTextureRect(sf::IntRect(64, 0, 16, 16));
+                  j1->move(Up);
+                }
+                else{
+                  j1->getSprite()->setTextureRect(sf::IntRect(80, 0, 16, 16));
+                  j1->move(Up);
+                }
               }
-            }
-            z++;
-            if(z == 2){
-              z = 0;
+              z++;
+              if(z == 2){
+                z = 0;
+              }
             }
           }
           // si se pulsa la tecla abajo
           else if(sf::Keyboard::isKeyPressed(sf::Keyboard::Down)){
-            dreta = false;
-            izda = false;
-            arriba = false;
-            abajo = true;
-            procesarColisiones();
-            if(down == true){
-              j1->getSprite()->setTextureRect(sf::IntRect(0, 0, 16, 16));
-              j1->move(Stay);
-              down = false;
-            }
-            else{
-              if(j == 0){
+            if(espacio == false){
+              dreta = false;
+              izda = false;
+              arriba = false;
+              abajo = true;
+              procesarColisiones();
+              if(down == true){
                 j1->getSprite()->setTextureRect(sf::IntRect(0, 0, 16, 16));
-                j1->move(Down);
+                j1->move(Stay);
+                down = false;
               }
               else{
-                j1->getSprite()->setTextureRect(sf::IntRect(16, 0, 16, 16));
-                j1->move(Down);
+                if(j == 0){
+                  j1->getSprite()->setTextureRect(sf::IntRect(0, 0, 16, 16));
+                  j1->move(Down);
+                }
+                else{
+                  j1->getSprite()->setTextureRect(sf::IntRect(16, 0, 16, 16));
+                  j1->move(Down);
+                }
               }
-            }
-            j++;
-            if(j == 2){
-              j = 0;
+              j++;
+              if(j == 2){
+                j = 0;
+              }
             }
           }
           if(sf::Keyboard::isKeyPressed(sf::Keyboard::Space)){
@@ -435,6 +489,12 @@ void Juego::procesarEventos(){
               maposo = new Map(matrixMapa2);
               this->inicializarTodo();
               j1->warp(16, 9);
+              enemigos[0]->restartSprite();
+              enemigos[1]->restartSprite();
+              enemigos[2]->restartSprite();
+              enemigos[0]->warp(176, 160);
+              enemigos[1]->warp(312, 192);
+              enemigos[2]->warp(224, 208);
               dibujaisimo = true;
             }
           }
@@ -557,7 +617,7 @@ void Juego::regenerarSnoobee2(){
     eliminao2 = false;
     muere2 = false;
     esGolpeado2 = false;
-    secondTime = false;
+    secondTime2 = false;
     //contMuertos--;
     nuevoEnemigo.restart();
   }
@@ -572,7 +632,7 @@ void Juego::regenerarSnoobee3(){
     eliminao3 = false;
     muere3 = false;
     esGolpeado3 = false;
-    secondTime = false;
+    secondTime3 = false;
     //contMuertos--;
     nuevoEnemigo.restart();
   }
@@ -886,7 +946,7 @@ void Juego::choqueBloquePengoIz(){
         //animaAvanza++;
       }
       this->cambiaAnimacionIz(animaAvanza);
-      cout << animaAvanza << endl;
+      //cout << animaAvanza << endl;
     }
     if(pulsado == false){
       //cout << "Confirmamos choque" << endl;
@@ -930,7 +990,7 @@ void Juego::cambiaAnimacionDe(int x){
         }
     }
     if(esGolpeado2 == true){
-      cout << "Entra en 1" << endl;
+      //cout << "Entra en 1" << endl;
       if(x == 0){
         //cout << "Cambia textura" << endl;
         enemigos[1]->getSprite()->setTextureRect(sf::IntRect(160, 192, 16, 16));
@@ -942,7 +1002,7 @@ void Juego::cambiaAnimacionDe(int x){
       }
     }
     if(esGolpeado == true){
-      cout << "Entra en 0" << endl;
+      //cout << "Entra en 0" << endl;
       if(x == 0){
         enemigos[0]->getSprite()->setTextureRect(sf::IntRect(160, 192, 16, 16));
         animaAvanza++;
@@ -1005,7 +1065,7 @@ void Juego::choqueBloquePengoDe(){
 void Juego::cambiaAnimacionUp(int x){
   sgsA = relojAnimator.getElapsedTime().asSeconds();
   if(sgsA >= 0.3){
-      cout << "Entra en 2" << endl;
+      //cout << "Entra en 2" << endl;
     if(esGolpeado3 == true){
         if(x == 0){
           //cout << "Cambia textura" << endl;
@@ -1018,7 +1078,7 @@ void Juego::cambiaAnimacionUp(int x){
         }
     }
     if(esGolpeado2 == true){
-      cout << "Entra en 1" << endl;
+      //cout << "Entra en 1" << endl;
       if(x == 0){
         //cout << "Cambia textura" << endl;
         enemigos[1]->getSprite()->setTextureRect(sf::IntRect(128, 192, 16, 16));
@@ -1091,7 +1151,7 @@ void Juego::choqueBloquePengoUp(){
 void Juego::cambiaAnimacionDown(int x){
   sgsA = relojAnimator.getElapsedTime().asSeconds();
   if(sgsA >= 0.3){
-      cout << "Entra en 2" << endl;
+      //cout << "Entra en 2" << endl;
     if(esGolpeado3 == true){
         if(x == 0){
           enemigos[2]->getSprite()->setTextureRect(sf::IntRect(128, 192, 16, 16));
@@ -1102,7 +1162,7 @@ void Juego::cambiaAnimacionDown(int x){
         }
     }
     if(esGolpeado2 == true){
-      cout << "Entra en 1" << endl;
+      //cout << "Entra en 1" << endl;
       if(x == 0){
         //cout << "Cambia textura" << endl;
         enemigos[1]->getSprite()->setTextureRect(sf::IntRect(128, 192, 16, 16));
@@ -1114,7 +1174,7 @@ void Juego::cambiaAnimacionDown(int x){
       }
     }
     if(esGolpeado == true){
-      cout << "Entra en 0" << endl;
+      //cout << "Entra en 0" << endl;
       if(x == 0){
         enemigos[0]->getSprite()->setTextureRect(sf::IntRect(128, 192, 16, 16));
         animaAvanza++;

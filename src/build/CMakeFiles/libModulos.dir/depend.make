@@ -10,10 +10,14 @@ CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o: ../ej_modulos/Juego.cpp
 CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o: ../ej_modulos/Juego.h
 CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o: ../ej_modulos/Jugador.h
 CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o: ../ej_modulos/Map.h
+CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o: ../ej_modulos/hud.h
 
 CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o: ../ej_modulos/Jugador.cpp
 CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o: ../ej_modulos/Jugador.h
 
 CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o: ../ej_modulos/Map.cpp
 CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o: ../ej_modulos/Map.h
+
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o: ../ej_modulos/hud.cpp
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o: ../ej_modulos/hud.h
 

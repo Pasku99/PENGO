@@ -11,7 +11,7 @@ using namespace sf;
     Jugador::Jugador(){
         vidas = 3;
         this->warp(16, 9);
-        velocidad = 0.05f;
+        velocidad = 0.1f;
         tex = new Texture();
         if (!tex->loadFromFile("resources/pengo.png")) {
             std::cerr << "Error cargando la imagen pengo.png";

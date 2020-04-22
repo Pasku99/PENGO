@@ -21,6 +21,10 @@ Map.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
 Enemigo.h
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Enemigo.h
+hud.h
+/home/pascual/Escritorio/PENGO/src/ej_modulos/hud.h
+sstream
+-
 
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.h
 SFML/Graphics.hpp
@@ -29,6 +33,12 @@ iostream
 -
 
 /home/pascual/Escritorio/PENGO/src/ej_modulos/Map.h
+SFML/Graphics.hpp
+-
+iostream
+-
+
+/home/pascual/Escritorio/PENGO/src/ej_modulos/hud.h
 SFML/Graphics.hpp
 -
 iostream

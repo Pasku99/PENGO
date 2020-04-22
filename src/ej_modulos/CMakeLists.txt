@@ -4,6 +4,7 @@ target_sources(libModulos PRIVATE
     "${CMAKE_CURRENT_SOURCE_DIR}/Map.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Jugador.cpp"
     "${CMAKE_CURRENT_SOURCE_DIR}/Enemigo.cpp"
+    "${CMAKE_CURRENT_SOURCE_DIR}/hud.cpp"
 )
 
 #Y donde se encuentran los .h

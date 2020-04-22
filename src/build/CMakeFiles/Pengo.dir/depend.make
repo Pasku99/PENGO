@@ -5,6 +5,7 @@ CMakeFiles/Pengo.dir/main.cpp.o: ../ej_modulos/Enemigo.h
 CMakeFiles/Pengo.dir/main.cpp.o: ../ej_modulos/Juego.h
 CMakeFiles/Pengo.dir/main.cpp.o: ../ej_modulos/Jugador.h
 CMakeFiles/Pengo.dir/main.cpp.o: ../ej_modulos/Map.h
+CMakeFiles/Pengo.dir/main.cpp.o: ../ej_modulos/hud.h
 CMakeFiles/Pengo.dir/main.cpp.o: ../include/config.h
 CMakeFiles/Pengo.dir/main.cpp.o: ../main.cpp
 

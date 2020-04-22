@@ -8,6 +8,7 @@ set(CMAKE_DEPENDS_CHECK_CXX
   "/home/pascual/Escritorio/PENGO/src/ej_modulos/Juego.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o"
   "/home/pascual/Escritorio/PENGO/src/ej_modulos/Jugador.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o"
   "/home/pascual/Escritorio/PENGO/src/ej_modulos/Map.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o"
+  "/home/pascual/Escritorio/PENGO/src/ej_modulos/hud.cpp" "/home/pascual/Escritorio/PENGO/src/build/CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o"
   )
 set(CMAKE_CXX_COMPILER_ID "GNU")
 

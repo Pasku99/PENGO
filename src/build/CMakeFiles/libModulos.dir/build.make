@@ -153,12 +153,37 @@ CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.provides: CMakeFiles/libModul
 CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.provides.build: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o
 
 
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o: CMakeFiles/libModulos.dir/flags.make
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o: ../ej_modulos/hud.cpp
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Building CXX object CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o"
+	/usr/bin/g++-5   $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -o CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o -c /home/pascual/Escritorio/PENGO/src/ej_modulos/hud.cpp
+
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.i: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Preprocessing CXX source to CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.i"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -E /home/pascual/Escritorio/PENGO/src/ej_modulos/hud.cpp > CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.i
+
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.s: cmake_force
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green "Compiling CXX source to assembly CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.s"
+	/usr/bin/g++-5  $(CXX_DEFINES) $(CXX_INCLUDES) $(CXX_FLAGS) -S /home/pascual/Escritorio/PENGO/src/ej_modulos/hud.cpp -o CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.s
+
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.requires:
+
+.PHONY : CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.requires
+
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.provides: CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.requires
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.provides.build
+.PHONY : CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.provides
+
+CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.provides.build: CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o
+
+
 # Object files for target libModulos
 libModulos_OBJECTS = \
 "CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o" \
 "CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o" \
 "CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o" \
-"CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o"
+"CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o" \
+"CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o"
 
 # External object files for target libModulos
 libModulos_EXTERNAL_OBJECTS =
@@ -167,9 +192,10 @@ liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Juego.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o
+liblibModulos.a: CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o
 liblibModulos.a: CMakeFiles/libModulos.dir/build.make
 liblibModulos.a: CMakeFiles/libModulos.dir/link.txt
-	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_5) "Linking CXX static library liblibModulos.a"
+	@$(CMAKE_COMMAND) -E cmake_echo_color --switch=$(COLOR) --green --bold --progress-dir=/home/pascual/Escritorio/PENGO/src/build/CMakeFiles --progress-num=$(CMAKE_PROGRESS_6) "Linking CXX static library liblibModulos.a"
 	$(CMAKE_COMMAND) -P CMakeFiles/libModulos.dir/cmake_clean_target.cmake
 	$(CMAKE_COMMAND) -E cmake_link_script CMakeFiles/libModulos.dir/link.txt --verbose=$(VERBOSE)
 
@@ -182,6 +208,7 @@ CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Juego.c
 CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.o.requires
 CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Jugador.cpp.o.requires
 CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/Enemigo.cpp.o.requires
+CMakeFiles/libModulos.dir/requires: CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o.requires
 
 .PHONY : CMakeFiles/libModulos.dir/requires
 

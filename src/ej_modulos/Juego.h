@@ -5,6 +5,8 @@
 #include "Jugador.h"
 #include "Map.h"
 #include "Enemigo.h"
+#include "hud.h"
+#include <sstream>
 
 using namespace std;
 using namespace sf;
@@ -30,13 +32,14 @@ class Juego{
         Clock relojaso, relojero, reloja, reiniciador;
         Clock nuevoEnemigo, relojAnimator, relojEmpujador;
         Clock andador;
+        float puntuacion = 0;
         bool walkR = false;
         int andandico = 0; 
         int contaorR = 0;
         float sgsEnemy = 0, sgsAnd = 0;
         bool eliminao = false, eliminao2 = false, eliminao3 = false;
         bool dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
-        bool firstTime = false, secondTime = false;
+        bool firstTime = false, secondTime = false, secondTime2 = false, secondTime3 = false;
         int contMuertos = 0;
         bool juegoPasado = false, muere1 = false, muere2 = false, muere3 = false;
         bool dibujaisimo = false;
@@ -49,6 +52,9 @@ class Juego{
         void iniciar();
         void inicializarTodo();
         void dibujar();
+        void controlarHUD();
+        void tablaPuntuaciones();
+        void DrawPuntuaciones(RenderWindow&);
         void animacionAndarDerecha();
         void spriteAndarDerecha(int);
         void procesarEventos();
@@ -103,24 +109,27 @@ class Juego{
         Event *evento;
         Map *maposo;
         Map *maposo2;
+        hud *hudio;
         Enemigo *enemigos[3];
         Sprite *guardado;
         Sprite *guardadoD;
         Sprite *guardadoA;
         Sprite *guardadoDo;
-        Texture *tex = new Texture();
+        Text *puntuar;
+        Font *letra;
+        Texture *texti = new Texture();
         int matrixMapa1[16][16]={
             {0, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 0},
             {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5},
             {3, 0, 1, 0, 1, 1, 1, 1, 1, 0, 1, 1, 1, 0, 0, 5},
             {3, 0, 1, 0, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 5},
-            {3, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 6, 1, 0, 5},
+            {3, 0, 1, 0, 1, 1, 0, 1, 0, 0, 1, 1, 1, 1, 0, 5},
             {3, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 0, 1, 0, 1, 1, 1, 0, 0, 1, 0, 0, 5},
-            {3, 0, 0, 0, 0, 1, 0, 0, 0, 1, 6, 0, 1, 0, 0, 5},
+            {3, 0, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1, 0, 0, 5},
             {3, 0, 0, 0, 0, 1, 0, 1, 0, 1, 0, 0, 0, 0, 0, 5},
             {3, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 1, 5},
@@ -134,12 +143,12 @@ class Juego{
             {3, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 0, 0, 0, 0, 5},
             {3, 0, 0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 5},
-            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 6, 0, 0, 5},
-            {3, 0, 1, 0, 1, 6, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 0, 0, 1, 0, 0, 1, 1, 1, 0, 0, 5},
+            {3, 0, 1, 0, 1, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 0, 0, 1, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
-            {3, 0, 0, 1, 0, 1, 0, 1, 0, 1, 6, 0, 1, 0, 0, 5},
+            {3, 0, 0, 1, 0, 1, 0, 1, 0, 1, 1, 0, 1, 0, 0, 5},
             {3, 0, 0, 1, 0, 1, 0, 1, 0, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 5},
             {3, 0, 1, 1, 1, 0, 1, 1, 1, 1, 0, 1, 1, 0, 1, 5},

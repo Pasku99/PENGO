@@ -244,6 +244,33 @@ ej_modulos/Map.cpp.s:
 	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/Map.cpp.s
 .PHONY : ej_modulos/Map.cpp.s
 
+ej_modulos/hud.o: ej_modulos/hud.cpp.o
+
+.PHONY : ej_modulos/hud.o
+
+# target to build an object file
+ej_modulos/hud.cpp.o:
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.o
+.PHONY : ej_modulos/hud.cpp.o
+
+ej_modulos/hud.i: ej_modulos/hud.cpp.i
+
+.PHONY : ej_modulos/hud.i
+
+# target to preprocess a source file
+ej_modulos/hud.cpp.i:
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.i
+.PHONY : ej_modulos/hud.cpp.i
+
+ej_modulos/hud.s: ej_modulos/hud.cpp.s
+
+.PHONY : ej_modulos/hud.s
+
+# target to generate assembly for a file
+ej_modulos/hud.cpp.s:
+	$(MAKE) -f CMakeFiles/libModulos.dir/build.make CMakeFiles/libModulos.dir/ej_modulos/hud.cpp.s
+.PHONY : ej_modulos/hud.cpp.s
+
 main.o: main.cpp.o
 
 .PHONY : main.o
@@ -293,6 +320,9 @@ help:
 	@echo "... ej_modulos/Map.o"
 	@echo "... ej_modulos/Map.i"
 	@echo "... ej_modulos/Map.s"
+	@echo "... ej_modulos/hud.o"
+	@echo "... ej_modulos/hud.i"
+	@echo "... ej_modulos/hud.s"
 	@echo "... main.o"
 	@echo "... main.i"
 	@echo "... main.s"
