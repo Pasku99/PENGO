@@ -1,0 +1,26 @@
+AUTOEVALUACIÓN
+
+A continuación, una enumeración de las tareas:
+	Tareas implementadas:	
+	- Animación movimiento Pengo
+	- Animación movimiento Snoobees(aleatorio)
+	- Animación empujar bloques Pengo
+	- Animación chafar Snoobees
+	- Animacion muerte Pengo
+	- Colisiones Pengo con entorno
+	- Colisiones Snoobee con entorno
+	- Colisiones Pengo con Snoobee
+	- Colisiones bloque con Snoobee, y posterior muerte
+	- Reiniciar y pasar niveles
+	- Implementación del HUD (Numero de vidas, titulo del juego, puntuación y nivel actual)
+
+	
+	Problemas encontrados:
+	- La animación de movimiento del Pengo no es la deseada en un principio. Se ha intentado de muchas maneras y al final
+	he encontrado la que creía más óptima.
+	- La primera vez que pierde una vida hace la animación de morir, la segunda no la hace.
+
+	Horas justificadas:
+	- Alrededor de 40 horas
+
+

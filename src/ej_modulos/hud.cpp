@@ -37,12 +37,12 @@ using namespace sf;
 
         titulo->setTextureRect(sf::IntRect(0, 8, 144, 64));
 
-        pengui[0]->setPosition(148, 384);
-        pengui[1]->setPosition(164, 384);
-        pengui[2]->setPosition(180, 384);
+        pengui[0]->setPosition(32, 288);
+        pengui[1]->setPosition(48, 288);
+        pengui[2]->setPosition(64, 288);
 
         titulo->setScale(0.5, 0.5);
-        titulo->setPosition(250, 387);
+        titulo->setPosition(144, 294);
     }
 
     hud::~hud(){

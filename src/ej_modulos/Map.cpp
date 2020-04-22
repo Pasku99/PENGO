@@ -28,37 +28,37 @@ Map::Map(int matriz[16][16]){
                 sprites[j][i] = new Sprite(*tex);    
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(251.5, 151.5, 16, 16));
-                sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
+                sprites[j][i]->setPosition((i+1) * 16, (j+2) * 16);
             }
             else if(matriz[j][i] == 2){ 
                 sprites[j][i] = new Sprite(*tex2);    
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(16, 16, 16, 16));
-                sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
+                sprites[j][i]->setPosition((i+1) * 16, (j+2) * 16);
             }
             else if(matriz[j][i] == 3){ 
                 sprites[j][i] = new Sprite(*tex2);    
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(32, 0, 16, 16));
-                sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
+                sprites[j][i]->setPosition((i+1) * 16, (j+2) * 16);
             }
             else if(matriz[j][i] == 4){  
                 sprites[j][i] = new Sprite(*tex2);    
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(32, 16, 16, 16));
-                sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
+                sprites[j][i]->setPosition((i+1) * 16, (j+2) * 16);
             }
             else if(matriz[j][i] == 5){ 
                 sprites[j][i] = new Sprite(*tex2);    
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(48, 0, 16, 16));
-                sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
+                sprites[j][i]->setPosition((i+1) * 16, (j+2) * 16);
             }
             else if(matriz[j][i] == 6){ 
                 sprites[j][i] = new Sprite(*tex2);    
                 sprites[j][i]->setOrigin(8, 8);
                 sprites[j][i]->setTextureRect(sf::IntRect(0, 16, 16, 16));
-                sprites[j][i]->setPosition((i+8) * 16, (j+8) * 16);
+                sprites[j][i]->setPosition((i+1) * 16, (j+2) * 16);
             }
         }
     }
