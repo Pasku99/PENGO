@@ -29,7 +29,11 @@ class Juego{
         float sgs = 0, sgs2 = 0, sgs3 = 0, sgsR = 0, sgsA = 0, animaEmpuja = 0;
         Clock relojaso, relojero, reloja, reiniciador;
         Clock nuevoEnemigo, relojAnimator, relojEmpujador;
-        float sgsEnemy = 0;
+        Clock andador;
+        bool walkR = false;
+        int andandico = 0; 
+        int contaorR = 0;
+        float sgsEnemy = 0, sgsAnd = 0;
         bool eliminao = false, eliminao2 = false, eliminao3 = false;
         bool dibujado = false, chocado = false, chocadoD = false, chocadoA = false, chocadoDo = false, espacio = false;
         bool firstTime = false, secondTime = false;
@@ -45,6 +49,8 @@ class Juego{
         void iniciar();
         void inicializarTodo();
         void dibujar();
+        void animacionAndarDerecha();
+        void spriteAndarDerecha(int);
         void procesarEventos();
         void procesarColisiones();
         void procesarColisionesPengoSnoobee();
@@ -86,6 +92,10 @@ class Juego{
         void cambiarSpriteDown(int, Sprite*);
         void AnimacionPengoMuriendo();
         void SpriteMuerto(int);
+        void EscribirTexto();
+        bool creareloj = false;
+        Clock relojpasando;
+        int antepos = 256, postepos = 0;
     private:
         bool gameover = false;
         RenderWindow *ventana;
