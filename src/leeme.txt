@@ -1,0 +1,34 @@
+AUTOEVALUACIÓN // PASCUAL SÁNCHEZ GONZÁLEZ 
+
+A continuación, una enumeración de las tareas:
+	Tareas implementadas:
+	- Movimiento pengo
+	- Movimiento Sno-Bees
+	- Movimiento bloques
+	- Muerte pengo
+	- Animación movimiento Pengo
+	- Animación movimiento Sno-Bees(aleatorio)
+	- Animación empujar bloques Pengo
+	- Animación destruir bloques
+	- Animación chafar Sno-Bees (muerte de estos)
+	- Animacion muerte Pengo
+	- Colisiones Pengo con entorno
+	- Colisiones Sno-Bees con entorno
+	- Colisiones Pengo con Sno-Bees
+	- Colisiones bloque con Sno-Bees, y posterior muerte
+	- Reaparición Sno-Bees (20 segundos desde que muere)
+	- Reaparición pengo (Animacion de muerte 3 segundos y reaparece)
+	- Reiniciar y pasar niveles
+	- Implementación de todas las teclas básicas
+	- Implementación del HUD (Numero de vidas, titulo del juego, puntuación y nivel actual)
+
+	
+	Problemas encontrados:
+	- La animación de movimiento del Pengo no es la deseada en un principio. Se ha intentado de muchas maneras y al final
+	he encontrado la que creía más óptima.
+	- La primera vez que pierde una vida hace la animación de morir, la segunda no la hace.
+
+	Horas justificadas:
+	- Alrededor de 40 horas
+
+
